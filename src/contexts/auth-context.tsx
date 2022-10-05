@@ -15,7 +15,7 @@ type AuthProps = {
 
 const Context = React.createContext<AuthProps | null>(null)
 
-export const Provider = ({ children }: ChildrenType) => {
+export const AuthProvider = ({ children }: ChildrenType) => {
   const [user, setUser] = React.useState<any | null>(null)
   const [auth, setAuth] = React.useState(false)
   const [error, setError] = React.useState('')
@@ -59,4 +59,12 @@ export const Provider = ({ children }: ChildrenType) => {
       {children}
     </Context.Provider>
   )
+}
+
+export const useAuth = () => {
+  const context = React.useContext(Context)
+
+  if (!context) throw new Error('Error on authProvider, please verify the app')
+
+  return { ...context }
 }
