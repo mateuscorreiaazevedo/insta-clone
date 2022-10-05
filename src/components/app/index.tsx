@@ -1,11 +1,12 @@
 import { ThemeProvider } from '../../contexts/theme-context'
 import { GlobalStyle } from '../../assets/styles/global'
 import React from 'react'
+import { AppRouter } from '../../routes/router'
 
 function App () {
   return (
     <ThemeProvider>
-    App
+    <AppRouter/>
     <GlobalStyle/>
     </ThemeProvider>
   )
