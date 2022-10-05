@@ -25,8 +25,6 @@ export const AuthProvider = ({ children }: ChildrenType) => {
   const [loader, setLoader] = React.useState(true)
   const token = tokenUtil.get()
 
-  console.log(auth)
-
   const getUser = async () => {
     try {
       setLoading(true)
