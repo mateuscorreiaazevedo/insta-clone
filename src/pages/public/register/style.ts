@@ -72,7 +72,7 @@ export const Title = styled.h1`
   }
 `
 
-export const SubTitle = styled.p`
+export const SubTitle = styled.div`
   font-size: 1.8rem;
   position: relative;
   .line {

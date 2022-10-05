@@ -5,7 +5,9 @@ import { PublicRoutes } from './public'
 import React from 'react'
 
 export const AppRouter = () => {
-  const { auth } = useAuth()
+  const { auth, loader } = useAuth()
+
+  if (loader) return <p>carregando...</p>
 
   return (
     <BrowserRouter>

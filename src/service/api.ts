@@ -1,11 +1,11 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios'
-import env from '../utils/env'
+// import env from '../utils/env'
 
-const BASE_URL = env.baseUrl
+const BASE_URL = 'http://localhost:5000/api'
 
 type HttpRequest = {
   url: string,
-  method?: 'get' | 'post' | 'put' | 'delete',
+  method?: 'get' | 'post' | 'put' | 'delete'
   body?: any
   headers?: any
 }
@@ -24,7 +24,7 @@ class ApiService {
     })
   }
 
-  async request<T =any> (props: HttpRequest): Promise<HttpResponse> {
+  async request<T = any> (props: HttpRequest): Promise<HttpResponse> {
     let axiosResponse: AxiosResponse<T>
 
     try {

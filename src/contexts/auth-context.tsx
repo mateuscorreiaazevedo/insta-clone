@@ -1,14 +1,16 @@
 import { ChildrenType } from '../types/children'
-import React from 'react'
+import { UserService } from '../service/user'
 import { tokenUtil } from '../utils/token'
+import React from 'react'
 
 type AuthProps = {
   user: any | null
   auth: boolean
   loading: boolean
+  loader: boolean
   error: string
-  handleLogin: () => void
-  handleRegister: () => void
+  handleLogin: (e: React.FormEvent<HTMLFormElement>, values: any) => Promise<void>
+  handleRegister: (e: React.FormEvent<HTMLFormElement>, values: any) => Promise<void>
   handleLogOut: () => void
 
 }
@@ -20,7 +22,10 @@ export const AuthProvider = ({ children }: ChildrenType) => {
   const [auth, setAuth] = React.useState(false)
   const [error, setError] = React.useState('')
   const [loading, setLoading] = React.useState(false)
+  const [loader, setLoader] = React.useState(true)
   const token = tokenUtil.get()
+
+  console.log(auth)
 
   const getUser = async () => {
     try {
@@ -38,14 +43,34 @@ export const AuthProvider = ({ children }: ChildrenType) => {
       setAuth(true)
       getUser()
     }
+    setLoader(false)
   }, [])
 
-  const handleLogin = async () => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>, values: any) => {
+    e.preventDefault()
 
+    try {
+      setLoading(true)
+    } catch (error) {
+      setError((error as any).message)
+    } finally {
+      setLoading(false)
+    }
   }
 
-  const handleRegister = async () => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>, values: any) => {
+    e.preventDefault()
 
+    try {
+      setLoading(true)
+      const response = await UserService.register(values)
+      tokenUtil.set(response.token)
+      window.location.href = '/'
+    } catch (error) {
+      setError((error as any).message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleLogOut = () => {
@@ -55,7 +80,7 @@ export const AuthProvider = ({ children }: ChildrenType) => {
   }
 
   return (
-    <Context.Provider value={{ user, auth, loading, error, handleLogin, handleLogOut, handleRegister }}>
+    <Context.Provider value={{ user, auth, loading, loader, error, handleLogin, handleLogOut, handleRegister }}>
       {children}
     </Context.Provider>
   )

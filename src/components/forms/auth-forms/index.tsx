@@ -4,38 +4,38 @@ import * as S from './style'
 import React from 'react'
 
 type Props = {
-  type: 'login' | 'register';
-  submit?: (e: React.FormEvent<HTMLFormElement>) => void;
+  type: 'login' | 'register'
+  submit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>
+  error: string
+  setValue: (e: React.ChangeEvent<HTMLInputElement>) => void
+  loading: boolean
 };
 
-export const AuthForm = ({ type, submit }: Props) => {
+export const AuthForm = ({ type, submit, error, loading, setValue }: Props) => {
   const [passwordView, setPasswordView] = React.useState(false)
   const [confirmPasswordView, setConfirmPasswordView] = React.useState(false)
 
   if (type === 'login') {
     return (
       <S.Form onSubmit={submit}>
-        <S.ContainerMsg>
-
+        <S.ContainerMsg className={error?.length ? 'active' : ''}>
+          {error}
         </S.ContainerMsg>
         <Input
-          placeholder="Nome de usuário"
-
-        />
-        <Input
           placeholder="Email"
+          name='email'
+          onChange={setValue}
         />
         <S.ContainerPass>
           <Input
             type={passwordView ? 'text' : 'password'}
             placeholder="Confirmação de senha"
+            name='password'
+            onChange={setValue}
           />
           <S.BtnView onClick={() => setPasswordView((prev) => !prev)}>
             {passwordView ? <BsEyeSlash /> : <BsEye />}
           </S.BtnView>
-          <S.Warning>
-            *A senha deve conter no mínimo 6 caracteres.
-          </S.Warning>
         </S.ContainerPass>
       </S.Form>
     )
@@ -43,41 +43,45 @@ export const AuthForm = ({ type, submit }: Props) => {
 
   return (
     <S.Form onSubmit={submit}>
-      <S.ContainerMsg >
-        teste
+      <S.ContainerMsg className={error?.length ? 'active' : ''}>
+        {error}
       </S.ContainerMsg>
       <Input
         placeholder="Nome de usuário"
         name='userName'
+        onChange={setValue}
       />
       <Input
         placeholder="Email"
         name='email'
+        onChange={setValue}
       />
       <S.ContainerPass>
         <Input
           type={passwordView ? 'text' : 'password'}
           placeholder="Confirmação de senha"
           name='password'
+          onChange={setValue}
         />
         <S.BtnView onClick={() => setPasswordView((prev) => !prev)}>
           {passwordView ? <BsEyeSlash /> : <BsEye />}
         </S.BtnView>
-        <S.Warning>
-          *A senha deve conter no mínimo 6 caracteres.
-        </S.Warning>
       </S.ContainerPass>
       <S.ContainerPass>
         <Input
           type={confirmPasswordView ? 'text' : 'password'}
           placeholder="Confirmação de senha"
           name='confirmPassword'
+          onChange={setValue}
         />
         <S.BtnView onClick={() => setConfirmPasswordView((prev) => !prev)}>
           {confirmPasswordView ? <BsEyeSlash /> : <BsEye />}
         </S.BtnView>
-
       </S.ContainerPass>
+      {!loading && (<S.ButtonSubmit>Registrar-se</S.ButtonSubmit>)}
+      {loading && (<S.ButtonSubmit className='disabled'>Aguarde...</S.ButtonSubmit>)}
+      <>
+      </>
     </S.Form>
   )
 }
