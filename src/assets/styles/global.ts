@@ -15,5 +15,7 @@ export const GlobalStyle = createGlobalStyle`
     width: 100vw;
     min-height: 100vh;
     font-size: 1.6rem;
+    background: ${({ theme }) => theme.colors.background};
+    color: ${({ theme }) => theme.colors.text}
   }
 `
