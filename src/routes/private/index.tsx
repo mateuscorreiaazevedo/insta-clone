@@ -1,12 +1,17 @@
+import { PrivateLayout } from '../../components/layouts/private'
+import { ProfilePage } from '../../pages/private/profile'
+import { ExplorePage } from '../../pages/private/explore'
+import { FeedPage } from '../../pages/private/feed'
 import { Routes, Route } from 'react-router-dom'
 import React from 'react'
-import { PrivateLayout } from '../../components/layouts/private'
 
 export const PrivateRoutes = () => {
   return (
     <PrivateLayout>
       <Routes>
-        <Route index element={<p>Teste</p>} />
+        <Route index element={<FeedPage/>} />
+        <Route path='/:userName' element={<ProfilePage/>} />
+        <Route path='/explore' element={<ExplorePage/>} />
       </Routes>
     </PrivateLayout>
   )

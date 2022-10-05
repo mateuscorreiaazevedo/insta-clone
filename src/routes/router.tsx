@@ -4,7 +4,7 @@ import { PublicRoutes } from './public'
 import React from 'react'
 
 export const AppRouter = () => {
-  const [auth] = React.useState(false)
+  const [auth] = React.useState(true)
 
   return (
     <BrowserRouter>
