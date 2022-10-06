@@ -5,14 +5,14 @@ import { tokenUtil } from '../utils/token'
 import React from 'react'
 
 type AuthProps = {
-  user: any | null
+  user: UserResponse | null
   auth: boolean
   loading: boolean
   loader: boolean
   error: string
   handleLogin: (e: React.FormEvent<HTMLFormElement>, values: UserLogin) => Promise<void>
   handleRegister: (e: React.FormEvent<HTMLFormElement>, values: UserRequest) => Promise<void>
-  handleLogOut: () => void
+  handleLogout: () => void
 
 }
 
@@ -76,14 +76,14 @@ export const AuthProvider = ({ children }: ChildrenType) => {
     }
   }
 
-  const handleLogOut = () => {
+  const handleLogout = () => {
     tokenUtil.clear()
     setUser(null)
     window.location.reload()
   }
 
   return (
-    <Context.Provider value={{ user, auth, loading, loader, error, handleLogin, handleLogOut, handleRegister }}>
+    <Context.Provider value={{ user, auth, loading, loader, error, handleLogin, handleLogout, handleRegister }}>
       {children}
     </Context.Provider>
   )
