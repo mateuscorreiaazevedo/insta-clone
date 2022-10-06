@@ -37,6 +37,8 @@ export const AuthForm = ({ type, submit, error, loading, setValue }: Props) => {
             {passwordView ? <BsEyeSlash /> : <BsEye />}
           </S.BtnView>
         </S.ContainerPass>
+        {!loading && (<S.ButtonSubmit>Entrar</S.ButtonSubmit>)}
+        {loading && (<S.ButtonSubmit className='disabled'>Aguarde...</S.ButtonSubmit>)}
       </S.Form>
     )
   }
@@ -80,8 +82,6 @@ export const AuthForm = ({ type, submit, error, loading, setValue }: Props) => {
       </S.ContainerPass>
       {!loading && (<S.ButtonSubmit>Registrar-se</S.ButtonSubmit>)}
       {loading && (<S.ButtonSubmit className='disabled'>Aguarde...</S.ButtonSubmit>)}
-      <>
-      </>
     </S.Form>
   )
 }
