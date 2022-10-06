@@ -8,7 +8,6 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: stretch;
   justify-content: space-evenly;
-  flex-grow: 1;
   gap: 10px;
 `
 
@@ -33,22 +32,20 @@ export const Warning = styled.span`
 `
 
 export const ContainerMsg = styled.div`
-  position: absolute;
   width: 400px;
-  top: 250px;
-  display: none;
+  display: flex;
+  visibility: hidden;
   justify-content: center;
   align-items: center;
   border-radius: 15px;
   margin-left: 7.5px;
+  height: 36px;
   &.active {
     font-size: 1.4rem;
-    height: 46px;
-    display: flex;
+    visibility: visible;
     background: ${({ theme }) => theme.colors.red};
   }
   @media (max-width: 425px) {
-    top: 210px;
     width: 340px;
   }
 `
