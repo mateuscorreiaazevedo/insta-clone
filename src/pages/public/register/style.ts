@@ -5,12 +5,13 @@ export const Main = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 90vh;
   width: 100vw;
   transition: color 600ms;
 `
 
 export const Container = styled.article`
+  box-shadow: 0 0 100px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,29 +27,6 @@ export const Container = styled.article`
     height: 100vh;
     border-radius: 0;
     padding: 12vh 0;
-  }
-`
-
-export const SwitchTheme = styled.span`
-  cursor: pointer;
-  font-size: 1.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  margin: 15px 0;
-  transition: letter-spacing 400ms;
-  &:hover {
-    letter-spacing: 2px;
-  }
-  svg {
-    font-size: 2rem;
-    animation: switch-theme 400ms;
-    @keyframes switch-theme {
-      from {
-        transform: scale(0);
-      }
-    }
   }
 `
 
