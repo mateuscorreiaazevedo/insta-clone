@@ -1,4 +1,4 @@
-import { UserLogin, UserRequest } from '../types/user'
+import { UserLogin, UserRequest, UserResponse } from '../types/user'
 import { ChildrenType } from '../types/children'
 import { UserService } from '../service/user'
 import { tokenUtil } from '../utils/token'
@@ -19,7 +19,7 @@ type AuthProps = {
 const Context = React.createContext<AuthProps | null>(null)
 
 export const AuthProvider = ({ children }: ChildrenType) => {
-  const [user, setUser] = React.useState<any | null>(null)
+  const [user, setUser] = React.useState<UserResponse | null>(null)
   const [auth, setAuth] = React.useState(false)
   const [error, setError] = React.useState('')
   const [loading, setLoading] = React.useState(false)
@@ -29,7 +29,8 @@ export const AuthProvider = ({ children }: ChildrenType) => {
   const getUser = async () => {
     try {
       setLoading(true)
-      setUser('')
+      const response = await UserService.getCurrentUser()
+      setUser(response)
     } catch (error) {
       setError((error as any).message)
     } finally {

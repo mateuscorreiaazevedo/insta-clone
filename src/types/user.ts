@@ -11,6 +11,7 @@ export type UserLogin = {
 }
 
 export type UserResponse = {
+  _id: string
   userName: string
   email: string,
   bio?: string,
