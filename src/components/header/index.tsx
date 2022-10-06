@@ -35,7 +35,7 @@ export const Header = () => {
             <S.Nav>
               <li>
                 <Link to='/'>
-                  {pathname === '/' ? <BsHouseDoorFill/> : <BsHouseDoor/>}
+                  {(pathname === '/' && !modal) ? <BsHouseDoorFill/> : <BsHouseDoor/>}
                 </Link>
               </li>
               <li>
