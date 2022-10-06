@@ -1,3 +1,4 @@
+import { UserLogin, UserRequest } from '../types/user'
 import { ChildrenType } from '../types/children'
 import { UserService } from '../service/user'
 import { tokenUtil } from '../utils/token'
@@ -9,8 +10,8 @@ type AuthProps = {
   loading: boolean
   loader: boolean
   error: string
-  handleLogin: (e: React.FormEvent<HTMLFormElement>, values: any) => Promise<void>
-  handleRegister: (e: React.FormEvent<HTMLFormElement>, values: any) => Promise<void>
+  handleLogin: (e: React.FormEvent<HTMLFormElement>, values: UserLogin) => Promise<void>
+  handleRegister: (e: React.FormEvent<HTMLFormElement>, values: UserRequest) => Promise<void>
   handleLogOut: () => void
 
 }
@@ -44,11 +45,14 @@ export const AuthProvider = ({ children }: ChildrenType) => {
     setLoader(false)
   }, [])
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>, values: any) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>, values: UserLogin) => {
     e.preventDefault()
 
     try {
       setLoading(true)
+      const response = await UserService.login(values)
+      tokenUtil.set(response.token)
+      window.location.href = '/'
     } catch (error) {
       setError((error as any).message)
     } finally {
@@ -56,7 +60,7 @@ export const AuthProvider = ({ children }: ChildrenType) => {
     }
   }
 
-  const handleRegister = async (e: React.FormEvent<HTMLFormElement>, values: any) => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>, values: UserRequest) => {
     e.preventDefault()
 
     try {
