@@ -1,25 +1,25 @@
-import { UserLogin, UserRequest } from '../types/user'
+import { UserLogin, UserRequest, UserResponse } from '../types/user'
 import { ChildrenType } from '../types/children'
 import { UserService } from '../service/user'
 import { tokenUtil } from '../utils/token'
 import React from 'react'
 
 type AuthProps = {
-  user: any | null
+  user: UserResponse | null
   auth: boolean
   loading: boolean
   loader: boolean
   error: string
   handleLogin: (e: React.FormEvent<HTMLFormElement>, values: UserLogin) => Promise<void>
   handleRegister: (e: React.FormEvent<HTMLFormElement>, values: UserRequest) => Promise<void>
-  handleLogOut: () => void
+  handleLogout: () => void
 
 }
 
 const Context = React.createContext<AuthProps | null>(null)
 
 export const AuthProvider = ({ children }: ChildrenType) => {
-  const [user, setUser] = React.useState<any | null>(null)
+  const [user, setUser] = React.useState<UserResponse | null>(null)
   const [auth, setAuth] = React.useState(false)
   const [error, setError] = React.useState('')
   const [loading, setLoading] = React.useState(false)
@@ -29,7 +29,8 @@ export const AuthProvider = ({ children }: ChildrenType) => {
   const getUser = async () => {
     try {
       setLoading(true)
-      setUser('')
+      const response = await UserService.getCurrentUser()
+      setUser(response)
     } catch (error) {
       setError((error as any).message)
     } finally {
@@ -75,14 +76,14 @@ export const AuthProvider = ({ children }: ChildrenType) => {
     }
   }
 
-  const handleLogOut = () => {
+  const handleLogout = () => {
     tokenUtil.clear()
     setUser(null)
     window.location.reload()
   }
 
   return (
-    <Context.Provider value={{ user, auth, loading, loader, error, handleLogin, handleLogOut, handleRegister }}>
+    <Context.Provider value={{ user, auth, loading, loader, error, handleLogin, handleLogout, handleRegister }}>
       {children}
     </Context.Provider>
   )
