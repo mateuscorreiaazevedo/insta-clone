@@ -8,6 +8,7 @@ import { Container } from '../ui/container'
 import { Input } from '../ui/input'
 import * as S from './style'
 import React from 'react'
+import { ModalPortal } from '../modal'
 
 export const Header = () => {
   const { pathname } = useLocation()
@@ -40,6 +41,9 @@ export const Header = () => {
               <li>
                 <div onClick={setModal}>
                   {!modal ? <BsPlusSquare/> : <BsPlusSquareFill/>}
+                  <ModalPortal isOpen={modal}>
+                    teste
+                  </ModalPortal>
                 </div>
               </li>
               <li>

@@ -12,6 +12,9 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    &:has(.modal-open) {
+      overflow-y: hidden;
+    }
     overflow-x: hidden;
     width: 100%;
     min-height: 100vh;
