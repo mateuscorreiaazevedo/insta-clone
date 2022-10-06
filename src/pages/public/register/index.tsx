@@ -21,9 +21,9 @@ export const RegisterPage = () => {
     <S.Main>
       <S.Container>
         <S.Section>
-          <S.Title>Bem-vindo</S.Title>
+          <S.Title>Bem-vindo!</S.Title>
           <S.SubTitle>
-            Registre-se aqui!
+            Registre-se aqui
             <div className="line"/>
           </S.SubTitle>
         </S.Section>

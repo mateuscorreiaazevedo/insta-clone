@@ -47,6 +47,10 @@ export const ContainerMsg = styled.div`
     display: flex;
     background: ${({ theme }) => theme.colors.red};
   }
+  @media (max-width: 425px) {
+    top: 210px;
+    width: 340px;
+  }
 `
 
 export const ButtonSubmit = styled.button.attrs({ type: 'submit' })`

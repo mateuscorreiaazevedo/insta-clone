@@ -5,7 +5,7 @@ export const Main = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 90vh;
+  min-height: 90vh;
   width: 100vw;
   transition: color 600ms;
 `
