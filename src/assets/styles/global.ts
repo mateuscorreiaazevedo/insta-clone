@@ -12,7 +12,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    width: 100vw;
+    overflow-x: hidden;
+    width: 100%;
     min-height: 100vh;
     font-size: 1.6rem;
     background: ${({ theme }) => theme.colors.background};

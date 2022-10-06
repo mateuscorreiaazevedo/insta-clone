@@ -3,7 +3,9 @@ import styled from 'styled-components'
 
 export const Header = styled.header`
   position: sticky;
+  top: 0;
   height: 60px;
+  width: 100%;
   background: ${({ theme }) => theme.colors.primary};
   border-bottom: 1px solid #777;
 `
