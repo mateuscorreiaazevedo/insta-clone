@@ -23,7 +23,7 @@ export const ProfileOptions = ({ isOpen }: Props) => {
       </S.Options>
       <S.Options>
         <Link to={`/${user?.userName}`}>
-          <FaUser/> profile
+          <FaUser/> perfil
         </Link>
       </S.Options>
       <S.Options>

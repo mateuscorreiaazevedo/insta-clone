@@ -1,4 +1,5 @@
 import { BsEye, BsEyeSlash } from 'react-icons/bs'
+import { ButtonSubmit } from '../../ui/button'
 import { Input } from '../../ui/input'
 import * as S from './style'
 import React from 'react'
@@ -37,8 +38,8 @@ export const AuthForm = ({ type, submit, error, loading, setValue }: Props) => {
             {passwordView ? <BsEyeSlash /> : <BsEye />}
           </S.BtnView>
         </S.ContainerPass>
-        {!loading && (<S.ButtonSubmit>Entrar</S.ButtonSubmit>)}
-        {loading && (<S.ButtonSubmit className='disabled'>Aguarde...</S.ButtonSubmit>)}
+        {!loading && (<ButtonSubmit>Entrar</ButtonSubmit>)}
+        {loading && (<ButtonSubmit className='disabled'>Aguarde...</ButtonSubmit>)}
       </S.Form>
     )
   }
@@ -80,8 +81,8 @@ export const AuthForm = ({ type, submit, error, loading, setValue }: Props) => {
           {confirmPasswordView ? <BsEyeSlash /> : <BsEye />}
         </S.BtnView>
       </S.ContainerPass>
-      {!loading && (<S.ButtonSubmit>Registrar-se</S.ButtonSubmit>)}
-      {loading && (<S.ButtonSubmit className='disabled'>Aguarde...</S.ButtonSubmit>)}
+      {!loading && (<ButtonSubmit>Registrar-se</ButtonSubmit>)}
+      {loading && (<ButtonSubmit className='disabled'>Aguarde...</ButtonSubmit>)}
     </S.Form>
   )
 }

@@ -9,12 +9,14 @@ import { Input } from '../ui/input'
 import * as S from './style'
 import React from 'react'
 import { ModalPortal } from '../modal'
+import { PostForm } from '../forms/post'
 
 export const Header = () => {
   const { pathname } = useLocation()
   const openRef = React.useRef(null)
+  const postRef = React.useRef(null)
   const [toggle, setToggle] = useClickOutside(openRef)
-  const [modal, setModal] = useClickOutside(openRef)
+  const [modal, setModal] = useClickOutside(postRef)
 
   return (
     <S.Header>
@@ -41,10 +43,12 @@ export const Header = () => {
               <li>
                 <div onClick={setModal}>
                   {!modal ? <BsPlusSquare/> : <BsPlusSquareFill/>}
-                  <ModalPortal isOpen={modal}>
-                    teste
-                  </ModalPortal>
                 </div>
+                <ModalPortal isOpen={modal}>
+                  <div ref={postRef}>
+                    <PostForm closeModal={setModal}/>
+                  </div>
+                </ModalPortal>
               </li>
               <li>
                 <Link to='/explore'>
