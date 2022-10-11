@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 export const Footer = styled.footer`
   height: 60px;
-  background: #333;
 `
 
 export const Copy = styled.h3`
