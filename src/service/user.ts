@@ -2,7 +2,7 @@ import { UserLogin, UserRequest } from '../types/user'
 import { tokenUtil } from '../utils/token'
 import { apiService } from './api'
 
-const token = JSON.parse(tokenUtil.get()!)
+const token = tokenUtil.get()
 
 export namespace UserService {
   export async function register (user: UserRequest) {
