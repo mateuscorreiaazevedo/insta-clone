@@ -41,7 +41,7 @@ export const SearchUser = () => {
         {!loading && (
         <S.ContainerResults className={search ? 'active' : ''}>
           {users.map((user: UserResponse, key) => (
-            <S.ContainerProfile to={`/${user.userName}`} key={key}>
+            <S.ContainerProfile to={`/${user.userName}`} key={key} onClick={setSearch}>
               <S.ImageProfile
                 src={user.userAvatar ? `${env.uploads}/users/${user.userAvatar}` : image.icon}
               />
