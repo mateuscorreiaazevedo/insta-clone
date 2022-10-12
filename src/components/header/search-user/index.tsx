@@ -5,18 +5,18 @@ import { UserResponse } from '../../../types/user'
 import image from '../../../assets/images/image'
 import { useApi } from '../../../hooks/api'
 import { BsSearch } from 'react-icons/bs'
+import { Loader } from '../../ui/loader'
 import { Input } from '../../ui/input'
 import env from '../../../utils/env'
 import * as S from './style'
 import React from 'react'
-import { Loader } from '../../ui/loader'
 
 export const SearchUser = () => {
   const [query, setQuery] = React.useState('')
   const searchRef = React.useRef(null)
   const [search, setSearch] = useClickOutside(searchRef)
   const { debounced } = debounceHelper(UserService.searchUsers)
-  const [users, loading, callback] = useApi<UserResponse[]>([], debounced)
+  const [users, loading, callback] = useApi<UserResponse[]>({ service: debounced, initialValue: [] })
 
   React.useEffect(() => {
     if (search) {
