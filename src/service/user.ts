@@ -61,4 +61,18 @@ export namespace UserService {
       default: throw new Error('Erro inesperado no servidor')
     }
   }
+  export async function searchUsers (q: string) {
+    const response = await apiService.request({
+      url: `/users/search?q=${q}`,
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
+    switch (response.statusCode) {
+      case 200: return response.body
+      default: throw new Error('Erro inesperado')
+    }
+  }
 }
