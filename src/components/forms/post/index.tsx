@@ -14,6 +14,7 @@ export const PostForm = ({ closeModal }: Props) => {
   const [error, setError] = React.useState<string>('')
   const [image, setImage] = React.useState<any>()
   const [loading, setLoading] = React.useState<boolean>(false)
+
   const insertPost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 

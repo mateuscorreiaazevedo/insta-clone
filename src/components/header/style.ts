@@ -43,19 +43,6 @@ export const Nav = styled.ul`
   }
 `
 
-export const ContainerSearch = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2px 16px;
-  border-radius: 8px;
-  background: ${({ theme }) => theme.colors.secondary};
-  svg {
-    font-size: 2.4rem;
-    color: #777;
-  }
-`
-
 export const IconNav = styled.img`
   cursor: pointer;
   width: 26px;
