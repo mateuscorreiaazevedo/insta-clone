@@ -1,15 +1,15 @@
-import { BsHouseDoorFill, BsHouseDoor, BsPlusSquare, BsPlusSquareFill, BsSearch } from 'react-icons/bs'
+import { BsHouseDoorFill, BsHouseDoor, BsPlusSquare, BsPlusSquareFill } from 'react-icons/bs'
 import { MdExplore, MdOutlineExplore } from 'react-icons/md'
 import { useClickOutside } from '../../hooks/click-outside'
 import { Link, useLocation } from 'react-router-dom'
 import { ProfileOptions } from './profile-options'
 import image from '../../assets/images/image'
 import { Container } from '../ui/container'
-import { Input } from '../ui/input'
+import { SearchUser } from './search-user'
+import { PostForm } from '../forms/post'
+import { ModalPortal } from '../modal'
 import * as S from './style'
 import React from 'react'
-import { ModalPortal } from '../modal'
-import { PostForm } from '../forms/post'
 
 export const Header = () => {
   const { pathname } = useLocation()
@@ -27,13 +27,7 @@ export const Header = () => {
                 Instagram
               </S.Title>
             </div>
-            <S.ContainerSearch>
-              <BsSearch/>
-              <Input
-                style={{ height: '30px' }}
-                placeholder='Pesquisar'
-              />
-            </S.ContainerSearch>
+            <SearchUser/>
             <S.Nav>
               <li>
                 <Link to='/'>
