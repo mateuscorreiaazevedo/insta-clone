@@ -9,6 +9,7 @@ import { Input } from '../../ui/input'
 import env from '../../../utils/env'
 import * as S from './style'
 import React from 'react'
+import { Loader } from '../../ui/loader'
 
 export const SearchUser = () => {
   const [query, setQuery] = React.useState('')
@@ -34,8 +35,8 @@ export const SearchUser = () => {
       <BsSearch className='icon'/>
       <div ref={searchRef}>
         {loading && (
-          <S.ContainerResults className={search ? 'active' : ''}>
-            <p>carregando...</p>
+          <S.ContainerResults className={`center ${search ? 'active' : ''}`}>
+              <Loader/>
           </S.ContainerResults>
         )}
         {!loading && (
@@ -55,4 +56,8 @@ export const SearchUser = () => {
       </div>
     </S.ContainerSearch>
   )
+}
+
+export function searchUsers (searchUsers: (q: string) => Promise<any>): { debounced: any } {
+  throw new Error('Function not implemented.')
 }

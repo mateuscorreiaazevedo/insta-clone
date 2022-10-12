@@ -56,6 +56,10 @@ export const ContainerResults = styled.div`
   &.active {
     display: flex;
   }
+  &.center {
+    align-items: center;
+    justify-content: center;
+  } 
 `
 
 export const ContainerProfile = styled(Link)`
