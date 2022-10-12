@@ -58,7 +58,8 @@ export const IconPreview = styled.div`
 
 export const Label = styled.label`
   cursor: pointer;
-  height: 570px;
+  height: 50vh;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,14 +71,15 @@ export const Input = styled.input`
 `
 
 export const ImagePreview = styled.img`
-  max-width: 580px;
+  max-height: 50vh;
+  max-width: 570px;
 `
 
 export const InputSubtitle = styled.textarea`
   min-width: 340px;
   max-width: 340px;
-  min-height: 520px;
-  max-height: 520px;
+  min-height: 50vh;
+  max-height: 50vh;
   font-size: 1.4rem;
   background: ${({ theme }) => theme.colors.secondary};
   border-radius: 15px;
