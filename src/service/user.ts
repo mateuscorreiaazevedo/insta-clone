@@ -92,12 +92,7 @@ export namespace UserService {
 
   export async function getByUserName (userName: string) {
     const response = await apiService.request({
-      url: `/users/${userName}`,
-      method: 'get',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      }
+      url: `/users/${userName}`
     })
 
     switch (response.statusCode) {
