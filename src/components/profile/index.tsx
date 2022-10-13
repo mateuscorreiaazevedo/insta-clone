@@ -1,12 +1,13 @@
+import { useClickOutside } from '../../hooks/click-outside'
 import { useAuth } from '../../contexts/auth-context'
 import { UserResponse } from '../../types/user'
 import image from '../../assets/images/image'
 import { Container } from '../ui/container'
+import { ModalPortal } from '../modal'
+import { EditProfile } from './edit'
 import env from '../../utils/env'
 import * as S from './style'
 import React from 'react'
-import { useClickOutside } from '../../hooks/click-outside'
-import { ModalPortal } from '../modal'
 
 type Props = {
   profileUser: UserResponse
@@ -22,7 +23,7 @@ export const Profile = ({ profileUser }: Props) => {
     <Container>
       <ModalPortal isOpen={edit}>
         <div ref={editRef}>
-
+          <EditProfile data={profileUser}/>
         </div>
       </ModalPortal>
       <S.SectionProfile>
