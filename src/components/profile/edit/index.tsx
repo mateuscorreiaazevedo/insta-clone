@@ -7,6 +7,7 @@ import * as S from './style'
 import React from 'react'
 import env from '../../../utils/env'
 import image from '../../../assets/images/image'
+import { UserService } from '../../../service/user'
 
 type Props ={
   data: UserResponse
@@ -14,8 +15,8 @@ type Props ={
 
 export const EditProfile = ({ data }: Props) => {
   const initialValue: UserRequisition = {
-    bio: data.bio,
-    link: data.link,
+    bio: data.bio ?? '',
+    link: data.link ?? '',
     userName: data.userName,
     password: ''
   }
@@ -23,7 +24,7 @@ export const EditProfile = ({ data }: Props) => {
   const [viewPass, setViewPass] = React.useState(false)
   const [userAvatar, setUserAvatar] = React.useState<any>(`${env.uploads}/users/${data.userAvatar}`)
   const [preview, setPreview] = React.useState<any>(userAvatar)
-  const [error] = React.useState('')
+  const [error, setError] = React.useState('')
 
   const setAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target
@@ -32,10 +33,25 @@ export const EditProfile = ({ data }: Props) => {
     setPreview(URL.createObjectURL(files![0]))
   }
 
+  const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const formData = new FormData()
+    formData.append('userAvatar', userAvatar)
+    Object.keys(values).forEach(key => formData.append(key, (values as any)[key]))
+
+    try {
+      const response = await UserService.updateUser(formData)
+      window.location.href = `/${response.userName}`
+    } catch (error) {
+      setError((error as any).message)
+    }
+  }
+
   return (
     <S.Container>
 
-      <S.Form>
+      <S.Form onSubmit={handleUpdate}>
         <S.ContainerAvatar>
           <S.UserAvatar
             src={preview.includes('undefined') ? image.icon : preview}
@@ -56,20 +72,20 @@ export const EditProfile = ({ data }: Props) => {
             placeholder='Nome de usuário'
             name='userName'
             onChange={setValue}
-            defaultValue={values?.userName ?? ''}
+            defaultValue={values?.userName}
           />
         </label>
         <Input
           placeholder='Biografia'
           name='bio'
           onChange={setValue}
-          defaultValue={values?.bio ?? ''}
+          defaultValue={values?.bio}
         />
         <Input
           placeholder='Site ou Link'
           name='link'
           onChange={setValue}
-          defaultValue={values?.link ?? ''}
+          defaultValue={values?.link}
         />
         <div className="divider"></div>
         <S.LabelPassword>

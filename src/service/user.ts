@@ -101,4 +101,24 @@ export namespace UserService {
       default: throw new Error('Erro inesperado na aplicação')
     }
   }
+
+  // Update current user
+
+  export async function updateUser (data: FormData) {
+    const response = await apiService.request({
+      url: '/users',
+      body: data,
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Bearer ${token}`
+      }
+    })
+    switch (response.statusCode) {
+      case 200: return response.body
+      case 422: throw new Error(response.body.errors[0])
+      default: throw new Error('Erro interno, por favor tente mais tarde')
+    }
+  }
+
 }
