@@ -41,7 +41,8 @@ export const SearchUser = () => {
         )}
         {!loading && (
         <S.ContainerResults className={search ? 'active' : ''}>
-          {users.map((user: UserResponse, key) => (
+          {users.length
+            ? users.map((user: UserResponse, key) => (
             <S.ContainerProfile to={`/${user.userName}`} key={key} onClick={setSearch}>
               <S.ImageProfile
                 src={user.userAvatar ? `${env.uploads}/users/${user.userAvatar}` : image.icon}
@@ -50,7 +51,8 @@ export const SearchUser = () => {
                 {user.userName}
               </b>
             </S.ContainerProfile>
-          ))}
+            ))
+            : <p>Nenhum resultado encontrado</p>}
         </S.ContainerResults>
         )}
       </div>
