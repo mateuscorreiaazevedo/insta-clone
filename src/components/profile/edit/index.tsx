@@ -82,7 +82,7 @@ export const EditProfile = ({ data }: Props) => {
           defaultValue={values?.bio}
         />
         <Input
-          placeholder='Site ou Link'
+          placeholder='Site (sem https://)*'
           name='link'
           onChange={setValue}
           defaultValue={values?.link}
