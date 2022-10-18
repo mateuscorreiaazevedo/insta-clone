@@ -10,7 +10,7 @@ import { useApi } from '../../../hooks/api'
 import React from 'react'
 
 export const ProfilePage = () => {
-  const [profile, loading, call, error] = useApi<UserResponse | null>({
+  const [profile, loading, call] = useApi<UserResponse | null>({
     service: UserService.getByUserName,
     initialValue: null
   })
@@ -21,7 +21,7 @@ export const ProfilePage = () => {
     call(userName)
   }, [userName])
 
-  if (loading || !profile) {
+  if (loading) {
     return (
       <Main
         style={{
@@ -36,7 +36,7 @@ export const ProfilePage = () => {
     )
   }
 
-  if (error) {
+  if (!profile) {
     return <NotFoundComponent />
   }
 

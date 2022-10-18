@@ -14,13 +14,12 @@ type Props = {
 
 export function useApi<T> ({ initialValue, service }: Props): Response<T> {
   const [value, setValue] = React.useState<T>(initialValue)
-  const [loading, setLoading] = React.useState(false)
+  const [loading, setLoading] = React.useState(true)
   const [errors, setErrors] = React.useState('')
 
   const callback = React.useCallback((params?: any) => {
     (async () => {
       try {
-        setLoading(true)
         const response = await service(params)
         setValue(response)
       } catch (error) {
