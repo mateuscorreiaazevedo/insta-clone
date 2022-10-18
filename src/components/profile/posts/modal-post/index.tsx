@@ -38,8 +38,8 @@ export const ModalPost = ({ post, userAvatar, userName }: Props) => {
             </h3>
           </S.LinkTo>
 
-          <div onClick={setOptions}>
-            <BsThreeDots/>
+          <div>
+            <BsThreeDots onClick={setOptions} className='btn-options'/>
               <S.OptionsNav className={options ? 'active' : ''}>
                 <div ref={optionsRef}>
                   <S.Options>

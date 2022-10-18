@@ -1,25 +1,28 @@
 import { PhotoService } from '../../../service/photo'
+import { PhotoResponse } from '../../../types/photo'
 import { ButtonSubmit } from '../../ui/button'
 import { IoMdImages } from 'react-icons/io'
 import { MdClose } from 'react-icons/md'
 import * as S from './style'
 import React from 'react'
-import { useApi } from '../../../hooks/api'
 import env from '../../../utils/env'
-import { PhotoResponse } from '../../../types/photo'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../../contexts/auth-context'
 
 type Props = {
   closeModal?: () => void
-  photoId?: string
+  editPost?: PhotoResponse
 }
 
-export const PostForm = ({ closeModal, photoId }: Props) => {
-  const [subtitle, setSubtitle] = React.useState<string>('')
+export const PostForm = ({ closeModal, editPost }: Props) => {
+  const [subtitle, setSubtitle] = React.useState(editPost?.subtitle || '')
   const [error, setError] = React.useState<string>('')
   const [image, setImage] = React.useState<any>()
   const [loading, setLoading] = React.useState<boolean>(false)
+  const navigate = useNavigate()
+  const { user } = useAuth()
 
-  const insertPost = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     const formData = new FormData()
@@ -38,13 +41,12 @@ export const PostForm = ({ closeModal, photoId }: Props) => {
     }
   }
 
-  const updatePost = async (e: React.FormEvent<HTMLFormElement>) => {
+  const updatePhoto = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
     try {
       setLoading(true)
-      await PhotoService.updatePhoto(photoId!, subtitle)
-      window.location.reload()
+      await PhotoService.updatePhoto(editPost!._id, subtitle)
+      navigate(`/${user?.userName}`)
     } catch (error) {
       setError((error as any).message)
     } finally {
@@ -52,27 +54,25 @@ export const PostForm = ({ closeModal, photoId }: Props) => {
     }
   }
 
-  if (photoId) {
-    const [getPhoto, loading, call] = useApi<PhotoResponse>({ service: PhotoService.getById })
-
-    React.useEffect(() => {
-      call(photoId)
-    }, [photoId])
-
-    if (loading) return <p>carregando...</p>
-
+  if (editPost) {
     return (
-      <S.Container>
-        <S.Form onSubmit={updatePost}>
-          <S.ImagePreview src={`${env.uploads}/photos/${getPhoto.image}`}/>
+      <S.Container className='page'>
+        {error && (
+        <S.ErrorMsg className='page'>
+          {error}
+        </S.ErrorMsg>
+        )}
+        <S.Title>Editar publicação</S.Title>
+        <S.Form onSubmit={updatePhoto}>
+          <S.ImagePreview src={`${env.uploads}/photos/${editPost.image}`} />
           <S.SectionPost>
           <S.InputSubtitle
             placeholder='Escreva um comentário...'
             name="subtitle"
             onChange={e => setSubtitle(e.target.value)}
-            defaultValue={getPhoto.subtitle}
+            defaultValue={subtitle}
           />
-          {!loading && (<ButtonSubmit>Compartilhar</ButtonSubmit>)}
+          {!loading && (<ButtonSubmit>Concluir</ButtonSubmit>)}
           {loading && (<ButtonSubmit className='disabled'>Aguarde...</ButtonSubmit>)}
         </S.SectionPost>
         </S.Form>
@@ -91,7 +91,7 @@ export const PostForm = ({ closeModal, photoId }: Props) => {
         <MdClose className='icon'/>
       </S.closeBtn>
       <S.Title>Nova publicação</S.Title>
-      <S.Form onSubmit={insertPost}>
+      <S.Form onSubmit={handleSubmit}>
         <S.Label>
           {image && (
             <S.ImagePreview src={URL.createObjectURL(image)}/>

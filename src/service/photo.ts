@@ -64,7 +64,7 @@ export namespace PhotoService {
 
   // update Photo
 
-  export async function updatePhoto (id: string, subtitle: string) {
+  export async function updatePhoto (id: string, subtitle?: string) {
     const response = await apiService.request({
       url: `/photos/${id}`,
       method: 'put',

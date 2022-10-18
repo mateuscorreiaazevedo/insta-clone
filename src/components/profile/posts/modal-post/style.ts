@@ -10,6 +10,18 @@ export const Div = styled.div`
   display: flex;
   padding: 15px;
   align-items: center;
+
+  .btn-options {
+    cursor: pointer;
+    font-size: 2rem;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: all 400ms;
+    &:active {
+      background: ${({ theme }) => theme.colors.secondary};
+    }
+  }
 `
 
 export const Image = styled.img`

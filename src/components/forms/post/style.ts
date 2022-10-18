@@ -10,6 +10,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  &.page {
+    margin: 32px 0;
+  }
 `
 
 export const ErrorMsg = styled.p`
@@ -24,6 +27,9 @@ export const ErrorMsg = styled.p`
   font-size: 1.6rem;
   height: 42px;
   background: ${({ theme }) => theme.colors.red};
+  &.page {
+    top: 80px;
+  }
 `
 
 export const Title = styled.h1`
