@@ -43,3 +43,25 @@ export const EditBtn = styled.span`
   text-align: center;
 
 `
+
+export const Publications = styled.h2`
+  width: 100%;
+  text-align: center;
+  font-size: 3rem;
+  
+  .divider {
+    margin-top: 5px;
+    width: 100%;
+    height: 1px;
+    background: #7777;
+  }
+`
+
+export const SectionPosts = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 280px);
+  grid-auto-flow: row;
+  grid-gap: 45px;
+
+  margin: 15px 0;
+`

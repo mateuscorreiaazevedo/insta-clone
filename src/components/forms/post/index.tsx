@@ -4,12 +4,16 @@ import { IoMdImages } from 'react-icons/io'
 import { MdClose } from 'react-icons/md'
 import * as S from './style'
 import React from 'react'
+import { useApi } from '../../../hooks/api'
+import env from '../../../utils/env'
+import { PhotoResponse } from '../../../types/photo'
 
 type Props = {
-  closeModal: () => void
+  closeModal?: () => void
+  photoId?: string
 }
 
-export const PostForm = ({ closeModal }: Props) => {
+export const PostForm = ({ closeModal, photoId }: Props) => {
   const [subtitle, setSubtitle] = React.useState<string>('')
   const [error, setError] = React.useState<string>('')
   const [image, setImage] = React.useState<any>()
@@ -32,6 +36,48 @@ export const PostForm = ({ closeModal }: Props) => {
     } finally {
       setLoading(false)
     }
+  }
+
+  const updatePost = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    try {
+      setLoading(true)
+      await PhotoService.updatePhoto(photoId!, subtitle)
+      window.location.reload()
+    } catch (error) {
+      setError((error as any).message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (photoId) {
+    const [getPhoto, loading, call] = useApi<PhotoResponse>({ service: PhotoService.getById })
+
+    React.useEffect(() => {
+      call(photoId)
+    }, [photoId])
+
+    if (loading) return <p>carregando...</p>
+
+    return (
+      <S.Container>
+        <S.Form onSubmit={updatePost}>
+          <S.ImagePreview src={`${env.uploads}/photos/${getPhoto.image}`}/>
+          <S.SectionPost>
+          <S.InputSubtitle
+            placeholder='Escreva um comentário...'
+            name="subtitle"
+            onChange={e => setSubtitle(e.target.value)}
+            defaultValue={getPhoto.subtitle}
+          />
+          {!loading && (<ButtonSubmit>Compartilhar</ButtonSubmit>)}
+          {loading && (<ButtonSubmit className='disabled'>Aguarde...</ButtonSubmit>)}
+        </S.SectionPost>
+        </S.Form>
+      </S.Container>
+    )
   }
 
   return (

@@ -8,16 +8,26 @@ import { EditProfile } from './edit'
 import env from '../../utils/env'
 import * as S from './style'
 import React from 'react'
+import { useApi } from '../../hooks/api'
+import { PhotoResponse } from '../../types/photo'
+import { PhotoService } from '../../service/photo'
+import { ProfilePosts } from './posts'
 
 type Props = {
   profileUser: UserResponse
 }
 
 export const Profile = ({ profileUser }: Props) => {
-  const { userName, bio, link, userAvatar } = profileUser
+  const { _id, userName, bio, link, userAvatar } = profileUser
   const { user } = useAuth()
   const editRef = React.useRef(null)
   const [edit, setEdit] = useClickOutside(editRef)
+
+  const [posts, loading, call] = useApi<PhotoResponse[]>({ service: PhotoService.getByUser })
+
+  React.useEffect(() => {
+    call(_id)
+  }, [profileUser])
 
   return (
     <Container>
@@ -46,6 +56,22 @@ export const Profile = ({ profileUser }: Props) => {
           </div>
         </div>
       </S.SectionProfile>
+      <S.Publications>
+        Publicações
+        <div className="divider"/>
+      </S.Publications>
+      <S.SectionPosts>
+        {posts?.map((post: PhotoResponse, key) => (
+            <ProfilePosts
+              key={key}
+              post={post}
+              userAvatar={userAvatar!}
+              loading={loading}
+              userName={userName}
+            />
+        ))}
+      </S.SectionPosts>
+      {!posts?.length && <S.Publications>Nenhuma publicação</S.Publications>}
     </Container>
   )
 }
