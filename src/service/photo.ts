@@ -84,6 +84,50 @@ export namespace PhotoService {
     }
   }
 
+  // like on photo
+
+  export async function likedPhoto (id: string) {
+    const response = await apiService.request({
+      url: `photos/like/${id}`,
+      method: 'put',
+      body: [
+        id
+      ],
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    switch (response.statusCode) {
+      case 200: return response.body
+      case 404: throw new Error(response.body.errors[0])
+      default: throw new Error('Erro interno, tente novamente mais tarde')
+    }
+  }
+
+  // comment on photo
+
+  export async function commentPhoto (id: string, comment: string) {
+    const response = await apiService.request({
+      url: `photos/comment/${id}`,
+      method: 'put',
+      body: {
+        comment
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    switch (response.statusCode) {
+      case 200: return response.body
+      case 404: throw new Error(response.body.errors[0])
+      default: throw new Error('Erro interno, tente novamente mais tarde')
+    }
+  }
+
   // delete Photo
 
   export async function deletePhoto (id: string) {

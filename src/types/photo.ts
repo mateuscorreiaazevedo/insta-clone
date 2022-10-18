@@ -7,3 +7,10 @@ export type PhotoResponse = {
   userName: string
   userId: string
 }
+
+export type CommentResponse = {
+  comment: string,
+  name: string
+  avatar: string
+  userId: string
+}

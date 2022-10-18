@@ -6,6 +6,8 @@ import env from '../../../../utils/env'
 import * as S from './style'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../../../contexts/auth-context'
+import image from '../../../../assets/images/image'
 
 type Props = {
   post: PhotoResponse,
@@ -16,7 +18,7 @@ type Props = {
 export const ModalPost = ({ post, userAvatar, userName }: Props) => {
   const optionsRef = React.useRef(null)
   const [options, setOptions] = useClickOutside(optionsRef)
-
+  const { user } = useAuth()
   const handleDelete = async (id: string) => {
     try {
       await PhotoService.deletePhoto(id)
@@ -32,12 +34,15 @@ export const ModalPost = ({ post, userAvatar, userName }: Props) => {
       <S.ContainerInfo>
         <S.Nav>
           <S.LinkTo to={`/${post.userName}`}>
-            <S.UserAvatar src={`${env.uploads}/users/${userAvatar}`} alt={userAvatar} />
+            <S.UserAvatar
+              src={userAvatar ? `${env.uploads}/users/${userAvatar}` : image.icon}
+              alt={userAvatar}
+            />
             <h3>
               {userName}
             </h3>
           </S.LinkTo>
-
+          {userName === user?.userName && (
           <div>
             <BsThreeDots onClick={setOptions} className='btn-options'/>
               <S.OptionsNav className={options ? 'active' : ''}>
@@ -53,6 +58,7 @@ export const ModalPost = ({ post, userAvatar, userName }: Props) => {
                 </div>
               </S.OptionsNav>
           </div>
+          )}
         </S.Nav>
         <S.CommentsList>
           {post?.subtitle && (
