@@ -8,6 +8,7 @@ export const Header = styled.header`
   width: 100%;
   background: ${({ theme }) => theme.colors.primary};
   border-bottom: 1px solid #777;
+  z-index: 99;
 `
 
 export const Content = styled.nav`
