@@ -8,7 +8,8 @@ export const Div = styled.div`
   height: 70vh;
   border-radius: 15px;
   display: flex;
-  padding: 15px;
+  padding: 15px 0;
+  padding-left: 15px;
   align-items: center;
 
   .btn-options {
@@ -149,4 +150,14 @@ export const BtnLike = styled.span`
     }
   }
   
+`
+
+export const ContainerActions = styled.div`
+  height: 80px;
+  padding: 10px 0;
+  border-top: 1px solid #777;
+`
+
+export const UsersLikeds = styled.p`
+  font-size: 1.4rem;
 `

@@ -3,30 +3,21 @@ import { BsChatFill, BsHeartFill } from 'react-icons/bs'
 import { PhotoResponse } from '../../../types/photo'
 import { ModalPortal } from '../../modal'
 import { ModalPost } from './modal-post'
-import { Loader } from '../../ui/loader'
 import env from '../../../utils/env'
 import * as S from './style'
 import React from 'react'
-import { useLikeAndComment } from '../../../hooks/like-comment'
 
 type Props = {
   post: PhotoResponse
   loading: boolean
   userAvatar: string
   userName: string
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const ProfilePosts = ({ userAvatar, loading, post, userName }: Props) => {
+export const ProfilePosts = ({ userAvatar, loading, post, userName, setLoading }: Props) => {
   const ref = React.useRef(null)
   const [toggle, setToggle] = useClickOutside(ref)
-  const { handleLike, likes } = useLikeAndComment({ initialLike: post.likes })
-  if (loading) {
-    return (
-      <div>
-        <Loader/>
-      </div>
-    )
-  }
 
   return (
     <>
@@ -34,7 +25,7 @@ export const ProfilePosts = ({ userAvatar, loading, post, userName }: Props) => 
       <S.Image src={`${env.uploads}/photos/${post.image}`} />
       <S.LikesAndComments>
         <S.Info>
-          {likes?.length} <BsHeartFill/>
+          {post.likes?.length} <BsHeartFill/>
         </S.Info>
         <S.Info>
           {post.comments?.length} <BsChatFill/>
@@ -47,8 +38,7 @@ export const ProfilePosts = ({ userAvatar, loading, post, userName }: Props) => 
           userAvatar={userAvatar}
           post={post}
           userName={userName}
-          likes={likes}
-          handleLike={handleLike}
+          setLoading={setLoading}
         />
       </div>
     </ModalPortal>
