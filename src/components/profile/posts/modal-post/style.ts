@@ -9,7 +9,6 @@ export const Div = styled.div`
   border-radius: 15px;
   display: flex;
   padding: 15px 0;
-  padding-left: 15px;
   align-items: center;
 
   .btn-options {
@@ -28,6 +27,7 @@ export const Div = styled.div`
 export const Image = styled.img`
   max-height: 70vh;
   max-width: 60%;
+  padding: 15px;
 `
 
 export const UserAvatar = styled.img`
@@ -153,11 +153,40 @@ export const BtnLike = styled.span`
 `
 
 export const ContainerActions = styled.div`
-  height: 80px;
+  height: 100px;
   padding: 10px 0;
   border-top: 1px solid #777;
 `
 
 export const UsersLikeds = styled.p`
   font-size: 1.4rem;
+`
+
+export const ContainerComments = styled.div`
+  margin: 5px;
+  display: flex;
+  padding: 0 10px;
+  align-items: center;
+  justify-content: space-between;
+  background: ${({ theme }) => theme.colors.secondary};
+  border-radius: 5px;
+`
+
+export const CommentField = styled.textarea`
+  resize: none;
+  width: 90%;
+  height: 40px;
+  border: none;
+  outline: none;
+  background: none;
+  padding:10px;
+  padding-left: 15px;
+  color: ${({ theme }) => theme.colors.text};
+`
+
+export const BtnSubmit = styled.button`
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: ${({ theme }) => theme.colors.blue};
 `

@@ -100,13 +100,18 @@ export const ModalPost = ({ post, userAvatar, userName, setLoading }: Props) => 
           {post.likes?.length
             ? (
             <S.UsersLikeds>
-              {/* {post.likes?.length} {post.likes?.length === 1 ? 'curtida' : 'curtidas'} */}
               curtido por <b>{userLiked?.userName}</b>
               {post?.likes.length === 2 && ' e mais 1 pessoa'}
               {post?.likes.length > 2 && ` e mais ${post?.likes.length - 1} pessoas`}
             </S.UsersLikeds>
               )
             : <S.UsersLikeds>nenhuma curtida</S.UsersLikeds>}
+          <S.ContainerComments>
+              <S.CommentField placeholder='Adicionar comentário...'/>
+              <S.BtnSubmit>
+                Publicar
+              </S.BtnSubmit>
+          </S.ContainerComments>
         </S.ContainerActions>
       </S.ContainerInfo>
     </S.Div>
