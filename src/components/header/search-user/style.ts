@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const ContainerSearch = styled.div`
+  position: relative;
   display: flex;
   width: 306px;
   flex-direction: row-reverse;
@@ -27,8 +28,8 @@ export const ContainerSearch = styled.div`
 
 export const ContainerResults = styled.div`
   position: absolute;
-  top: 60px;
-  right: 430px;
+  top: 45px;
+  right: -20px;
   background: ${({ theme }) => (
     theme.title !== 'dark' ? theme.colors.primary : theme.colors.secondary
   )};

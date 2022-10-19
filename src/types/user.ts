@@ -18,3 +18,10 @@ export type UserResponse = {
   link?: string,
   userAvatar?: string,
 }
+
+export type UserRequisition = {
+  userName?: string
+  bio?: string
+  link?: string
+  password?: string
+}

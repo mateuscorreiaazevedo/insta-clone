@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios'
-// import env from '../utils/env'
+import env from '../utils/env'
 
-const BASE_URL = 'http://localhost:5000/api'
+const BASE_URL = env.baseUrl
 
 type HttpRequest = {
   url: string,

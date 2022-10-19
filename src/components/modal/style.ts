@@ -11,5 +11,5 @@ export const Overlay = styled.div.attrs({ className: 'modal-open' })`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9;
+  z-index: 100;
 `

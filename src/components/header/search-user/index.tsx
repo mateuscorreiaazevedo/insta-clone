@@ -5,18 +5,18 @@ import { UserResponse } from '../../../types/user'
 import image from '../../../assets/images/image'
 import { useApi } from '../../../hooks/api'
 import { BsSearch } from 'react-icons/bs'
+import { Loader } from '../../ui/loader'
 import { Input } from '../../ui/input'
 import env from '../../../utils/env'
 import * as S from './style'
 import React from 'react'
-import { Loader } from '../../ui/loader'
 
 export const SearchUser = () => {
   const [query, setQuery] = React.useState('')
   const searchRef = React.useRef(null)
   const [search, setSearch] = useClickOutside(searchRef)
   const { debounced } = debounceHelper(UserService.searchUsers)
-  const [users, loading, callback] = useApi<UserResponse[]>([], debounced)
+  const [users, loading, callback] = useApi<UserResponse[]>({ service: debounced, initialValue: [] })
 
   React.useEffect(() => {
     if (search) {
@@ -41,7 +41,8 @@ export const SearchUser = () => {
         )}
         {!loading && (
         <S.ContainerResults className={search ? 'active' : ''}>
-          {users.map((user: UserResponse, key) => (
+          {users.length
+            ? users.map((user: UserResponse, key) => (
             <S.ContainerProfile to={`/${user.userName}`} key={key} onClick={setSearch}>
               <S.ImageProfile
                 src={user.userAvatar ? `${env.uploads}/users/${user.userAvatar}` : image.icon}
@@ -50,7 +51,8 @@ export const SearchUser = () => {
                 {user.userName}
               </b>
             </S.ContainerProfile>
-          ))}
+            ))
+            : <p>Nenhum resultado encontrado</p>}
         </S.ContainerResults>
         )}
       </div>

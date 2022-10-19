@@ -3,28 +3,38 @@ import React from 'react'
 type Response<T> = [
   T,
   boolean,
-  (params: any) => void
+  (params?: any) => void,
+  string
 ]
 
-export function useApi<T> (initialValue: T, service: any): Response<T> {
-  const [value, setValue] = React.useState(initialValue)
-  const [loading, setLoading] = React.useState<boolean>(false)
+type Props = {
+  initialValue?: any
+  service: any
+}
 
-  const callback = React.useCallback(async (params: any) => {
-    try {
-      setLoading(true)
-      const response = await service(params)
-      setValue(response)
-    } catch (error) {
-      console.error((error as any).message)
-    } finally {
-      setLoading(false)
-    }
+export function useApi<T> ({ initialValue, service }: Props): Response<T> {
+  const [value, setValue] = React.useState<T>(initialValue)
+  const [loading, setLoading] = React.useState(true)
+  const [errors, setErrors] = React.useState('')
+
+  const callback = React.useCallback((params?: any) => {
+    (async () => {
+      try {
+        const response = await service(params)
+        setValue(response)
+      } catch (error) {
+        setErrors((error as any).message)
+        console.error((error as any).message)
+      } finally {
+        setLoading(false)
+      }
+    })()
   }, [])
 
   return [
     value,
     loading,
-    callback
+    callback,
+    errors
   ]
 }

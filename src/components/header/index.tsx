@@ -10,8 +10,11 @@ import { PostForm } from '../forms/post'
 import { ModalPortal } from '../modal'
 import * as S from './style'
 import React from 'react'
+import { useAuth } from '../../contexts/auth-context'
+import env from '../../utils/env'
 
 export const Header = () => {
+  const { user } = useAuth()
   const { pathname } = useLocation()
   const openRef = React.useRef(null)
   const postRef = React.useRef(null)
@@ -51,7 +54,7 @@ export const Header = () => {
               </li>
               <li>
                 <div style={{ position: 'relative' }}>
-                  <S.IconNav src={image.icon} onClick={setToggle} />
+                  <S.IconNav src={user?.userAvatar ? `${env.uploads}/users/${user.userAvatar}` : image.icon} onClick={setToggle} />
                   <div ref={openRef}>
                     <ProfileOptions isOpen={toggle}/>
                   </div>

@@ -39,6 +39,7 @@ export const ContainerMsg = styled.div`
   border-radius: 15px;
   margin-left: 7.5px;
   height: 36px;
+  color: #fff;
   &.active {
     font-size: 1.4rem;
     visibility: visible;
