@@ -1,24 +1,37 @@
 import { useClickOutside } from '../../../../hooks/click-outside'
 import { PhotoService } from '../../../../service/photo'
 import { PhotoResponse } from '../../../../types/photo'
-import { BsHeart, BsThreeDots } from 'react-icons/bs'
+import { BsHeart, BsHeartFill, BsThreeDots } from 'react-icons/bs'
 import env from '../../../../utils/env'
 import * as S from './style'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../../../contexts/auth-context'
 import image from '../../../../assets/images/image'
+import { useApi } from '../../../../hooks/api'
+import { UserResponse } from '../../../../types/user'
+import { UserService } from '../../../../service/user'
 
 type Props = {
   post: PhotoResponse,
   userAvatar?: string
   userName?: string
+  likes: string[] | undefined
+  handleLike: (id: string) => Promise<void>
 }
 
-export const ModalPost = ({ post, userAvatar, userName }: Props) => {
+export const ModalPost = ({ post, userAvatar, userName, handleLike, likes }: Props) => {
   const optionsRef = React.useRef(null)
   const [options, setOptions] = useClickOutside(optionsRef)
   const { user } = useAuth()
+  const [profile,, call] = useApi<UserResponse>({ service: UserService.getUserById })
+
+  if (likes) {
+    React.useEffect(() => {
+      likes.forEach(id => call(id as string))
+    }, [likes])
+  }
+
   const handleDelete = async (id: string) => {
     try {
       await PhotoService.deletePhoto(id)
@@ -71,9 +84,18 @@ export const ModalPost = ({ post, userAvatar, userName }: Props) => {
           )}
         </S.CommentsList>
         <div>
-          <span onClick={() => {}}>
-            <BsHeart/>
-          </span>
+          <S.BtnLike onClick={() => handleLike(post._id)}>
+              {likes?.includes(user!._id) ? <BsHeartFill className='red'/> : <BsHeart/>}
+          </S.BtnLike>
+          {likes?.length
+            ? (
+            <p>
+              curtido por <b>{profile?.userName}</b>
+              {likes?.length === 2 && ` e mais ${likes.length - 1} pessoa`}
+              {likes?.length > 2 && ` e mais ${likes.length - 1} pessoas`}
+            </p>
+              )
+            : <p>nenhuma curtida</p>}
         </div>
       </S.ContainerInfo>
     </S.Div>

@@ -132,3 +132,21 @@ export const Options = styled.li`
 
   }
 `
+
+export const BtnLike = styled.span`
+  font-size: 2.4rem;
+  cursor: pointer;
+
+  .red {
+    color: ${({ theme }) => theme.colors.red};
+  }
+  svg {
+    animation: liked 400ms;
+    @keyframes liked {
+      from {
+        transform: scale(0);
+      }
+    }
+  }
+  
+`

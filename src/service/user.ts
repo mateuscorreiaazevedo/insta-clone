@@ -121,4 +121,18 @@ export namespace UserService {
     }
   }
 
+  // get by id
+
+  export async function getUserById (id: string) {
+    const response = await apiService.request({
+      url: `/users/user/${id}`
+    })
+
+    switch (response.statusCode) {
+      case 200: return response.body
+      case 404: throw new Error(response.body.errors[0])
+      default: throw new Error('Erro inesperado na aplicação')
+    }
+  }
+
 }
