@@ -1,43 +1,69 @@
+import { BsChat, BsHeart, BsHeartFill, BsThreeDots } from 'react-icons/bs'
 import { useClickOutside } from '../../../../hooks/click-outside'
+import { useAuth } from '../../../../contexts/auth-context'
 import { PhotoService } from '../../../../service/photo'
-import { PhotoResponse } from '../../../../types/photo'
-import { BsHeart, BsHeartFill, BsThreeDots } from 'react-icons/bs'
+import { CommentResponse, PhotoResponse } from '../../../../types/photo'
+import { UserService } from '../../../../service/user'
+import { UserResponse } from '../../../../types/user'
+import image from '../../../../assets/images/image'
+import { useApi } from '../../../../hooks/api'
+import { Link } from 'react-router-dom'
 import env from '../../../../utils/env'
 import * as S from './style'
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { useAuth } from '../../../../contexts/auth-context'
-import image from '../../../../assets/images/image'
-import { useApi } from '../../../../hooks/api'
-import { UserResponse } from '../../../../types/user'
-import { UserService } from '../../../../service/user'
 
 type Props = {
   post: PhotoResponse,
   userAvatar?: string
   userName?: string
-  likes: string[] | undefined
-  handleLike: (id: string) => Promise<void>
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const ModalPost = ({ post, userAvatar, userName, handleLike, likes }: Props) => {
+export const ModalPost = ({ post, userAvatar, userName, setLoading }: Props) => {
   const optionsRef = React.useRef(null)
   const [options, setOptions] = useClickOutside(optionsRef)
+  const [userLiked,, call] = useApi<UserResponse>({ service: UserService.getUserById })
+  const [comment, setComment] = React.useState('')
   const { user } = useAuth()
-  const [profile,, call] = useApi<UserResponse>({ service: UserService.getUserById })
 
-  if (likes) {
-    React.useEffect(() => {
-      likes.forEach(id => call(id as string))
-    }, [likes])
-  }
+  React.useEffect(() => {
+    post.likes?.forEach(id => call(id))
+  }, [post?.likes])
 
   const handleDelete = async (id: string) => {
     try {
+      setLoading(prev => !prev)
       await PhotoService.deletePhoto(id)
-      window.location.reload()
+      setComment('')
     } catch (error) {
       console.error((error as any).message)
+    } finally {
+      setLoading(prev => !prev)
+    }
+  }
+
+  const handleLike = async (id: string) => {
+    try {
+      setLoading(prev => !prev)
+      await PhotoService.likedPhoto(id)
+    } catch (error) {
+      console.error((error as any).message)
+    } finally {
+      setLoading(prev => !prev)
+    }
+  }
+
+  const handleComment = async (e: React.FormEvent<HTMLFormElement>, id: string) => {
+    e.preventDefault()
+
+    try {
+      setLoading(prev => !prev)
+      await PhotoService.commentPhoto(id, comment)
+    } catch (error) {
+      console.error((error as any).message)
+    } finally {
+      setComment('')
+      setLoading(prev => !prev)
     }
   }
 
@@ -78,25 +104,48 @@ export const ModalPost = ({ post, userAvatar, userName, handleLike, likes }: Pro
             <S.ContainerSubtitle>
               <S.UserAvatar src={`${env.uploads}/users/${userAvatar}`} alt={userAvatar} />
               <p>
-              <b>{userName}</b>  {post.subtitle}
+                <b>{userName}</b>  {post.subtitle}
               </p>
-          </S.ContainerSubtitle>
+            </S.ContainerSubtitle>
           )}
+          {post.comments?.map((item: CommentResponse, key) => (
+            <S.ContainerSubtitle key={key}>
+              <S.UserAvatar src={`${env.uploads}/users/${item.avatar}`} alt={item.name} />
+              <p>
+                <b>{item.name}</b>  {item.comment}
+              </p>
+            </S.ContainerSubtitle>
+
+          ))}
         </S.CommentsList>
-        <div>
+        <S.ContainerActions>
           <S.BtnLike onClick={() => handleLike(post._id)}>
-              {likes?.includes(user!._id) ? <BsHeartFill className='red'/> : <BsHeart/>}
+              {post.likes?.includes(user!._id) ? <BsHeartFill className='red'/> : <BsHeart/>}
           </S.BtnLike>
-          {likes?.length
+          <S.BtnBallon htmlFor='comment'>
+            <BsChat/>
+          </S.BtnBallon>
+          {post.likes?.length
             ? (
-            <p>
-              curtido por <b>{profile?.userName}</b>
-              {likes?.length === 2 && ` e mais ${likes.length - 1} pessoa`}
-              {likes?.length > 2 && ` e mais ${likes.length - 1} pessoas`}
-            </p>
+            <S.UsersLikeds>
+              curtido por <b>{userLiked?.userName}</b>
+              {post?.likes.length === 2 && ' e mais 1 pessoa'}
+              {post?.likes.length > 2 && ` e mais ${post?.likes.length - 1} pessoas`}
+            </S.UsersLikeds>
               )
-            : <p>nenhuma curtida</p>}
-        </div>
+            : <S.UsersLikeds>nenhuma curtida</S.UsersLikeds>}
+          <S.ContainerComments onSubmit={e => handleComment(e, post._id)}>
+              <S.CommentField
+                placeholder='Adicionar comentário...'
+                id='comment'
+                onChange={e => setComment(e.target.value)}
+                value={comment}
+              />
+              <S.BtnSubmit type='submit'>
+                Publicar
+              </S.BtnSubmit>
+          </S.ContainerComments>
+        </S.ContainerActions>
       </S.ContainerInfo>
     </S.Div>
   )

@@ -23,11 +23,11 @@ export const Profile = ({ profileUser }: Props) => {
   const editRef = React.useRef(null)
   const [edit, setEdit] = useClickOutside(editRef)
 
-  const [posts, loading, call] = useApi<PhotoResponse[]>({ service: PhotoService.getByUser })
+  const [posts, loading, call,, setLoading] = useApi<PhotoResponse[]>({ service: PhotoService.getByUser })
 
   React.useEffect(() => {
     call(_id)
-  }, [profileUser])
+  }, [profileUser, loading])
 
   return (
     <Container>
@@ -68,6 +68,7 @@ export const Profile = ({ profileUser }: Props) => {
               userAvatar={userAvatar!}
               loading={loading}
               userName={userName}
+              setLoading={setLoading}
             />
         ))}
       </S.SectionPosts>

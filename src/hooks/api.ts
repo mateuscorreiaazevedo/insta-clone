@@ -4,7 +4,8 @@ type Response<T> = [
   T,
   boolean,
   (params?: any) => void,
-  string
+  string,
+  React.Dispatch<React.SetStateAction<boolean>>
 ]
 
 type Props = {
@@ -35,6 +36,7 @@ export function useApi<T> ({ initialValue, service }: Props): Response<T> {
     value,
     loading,
     callback,
-    errors
+    errors,
+    setLoading
   ]
 }

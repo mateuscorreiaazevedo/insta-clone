@@ -8,7 +8,7 @@ export const Div = styled.div`
   height: 70vh;
   border-radius: 15px;
   display: flex;
-  padding: 15px;
+  padding: 15px 0;
   align-items: center;
 
   .btn-options {
@@ -16,6 +16,7 @@ export const Div = styled.div`
     font-size: 2rem;
     width: 30px;
     height: 30px;
+    margin: 0 15px;
     border-radius: 50%;
     transition: all 400ms;
     &:active {
@@ -27,6 +28,7 @@ export const Div = styled.div`
 export const Image = styled.img`
   max-height: 70vh;
   max-width: 60%;
+  padding: 15px;
 `
 
 export const UserAvatar = styled.img`
@@ -37,14 +39,13 @@ export const UserAvatar = styled.img`
 `
 
 export const ContainerInfo = styled.div`
-  display: flex;
   height: 100%;
   margin-left: 7.5px;
   padding-left: 7.5px;
   border-left: 1px solid #777;
-  flex-direction: column;
-  align-items: stretch;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
 `
 
@@ -76,13 +77,12 @@ export const ContainerSubtitle = styled.div`
   font-size: 1.4rem;
   flex-grow: 1;
   text-align: start;
+  margin: 10px 0;
 `
 
 export const CommentsList = styled.div`
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
   padding: 15px 0;
+  flex-grow: 1;
 `
 
 export const OptionsNav = styled.ul`
@@ -91,7 +91,7 @@ export const OptionsNav = styled.ul`
   opacity: 0;
   height: 0;
   transition: all 400ms;
-  right: -15px;
+  right: 5px;
   width: 150px;
   border-radius: 10px;
   padding: 15px 0;
@@ -148,5 +148,49 @@ export const BtnLike = styled.span`
       }
     }
   }
+`
+export const BtnBallon = styled.label`
+  font-size: 2.4rem;
+  cursor: pointer;
+  margin-left: 15px;
   
+`
+
+export const ContainerActions = styled.div`
+  height: 100px;
+  padding: 10px 0;
+  border-top: 1px solid #777;
+`
+
+export const UsersLikeds = styled.p`
+  font-size: 1.4rem;
+`
+
+export const ContainerComments = styled.form`
+  margin: 5px;
+  display: flex;
+  padding: 0 10px;
+  align-items: center;
+  justify-content: space-between;
+  background: ${({ theme }) => theme.colors.secondary};
+  border-radius: 5px;
+`
+
+export const CommentField = styled.textarea`
+  resize: none;
+  width: 90%;
+  height: 40px;
+  border: none;
+  outline: none;
+  background: none;
+  padding:10px;
+  padding-left: 15px;
+  color: ${({ theme }) => theme.colors.text};
+`
+
+export const BtnSubmit = styled.button`
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: ${({ theme }) => theme.colors.blue};
 `
