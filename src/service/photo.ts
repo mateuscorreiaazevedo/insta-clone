@@ -25,6 +25,24 @@ export namespace PhotoService {
     }
   }
 
+  // get all photos
+
+  export async function getAll () {
+    const response = await apiService.request({
+      url: '/photos',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    switch (response.statusCode) {
+      case 200: return response.body
+      case 511: throw new Error(response.body.errors[0])
+      default: throw new Error('Erro interno, tente novamente mais tarde')
+    }
+  }
+
   // get photo by user
 
   export async function getByUser (userId: string) {
