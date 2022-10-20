@@ -52,7 +52,7 @@ export const SearchUser = () => {
               </b>
             </S.ContainerProfile>
             ))
-            : <p>Nenhum resultado encontrado</p>}
+            : <S.NotFoundMsg>Nenhum resultado encontrado</S.NotFoundMsg>}
         </S.ContainerResults>
         )}
       </div>
