@@ -50,4 +50,9 @@ export const IconNav = styled.img`
   height: 26px;
   border-radius: 50%;
   object-fit: cover;
+
+  &.actived {
+    border: 1px solid ${({ theme }) => theme.colors.primary};
+    outline: 1px solid ${({ theme }) => theme.colors.text};
+  }
 `

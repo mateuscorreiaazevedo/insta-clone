@@ -84,3 +84,8 @@ export const ImageProfile = styled.img`
   border-radius: 50%;
   object-fit: cover;
 `
+
+export const NotFoundMsg = styled.p`
+text-align: center;
+  font-size: 1.8rem;
+`

@@ -54,7 +54,12 @@ export const Header = () => {
               </li>
               <li>
                 <div style={{ position: 'relative' }}>
-                  <S.IconNav src={user?.userAvatar ? `${env.uploads}/users/${user.userAvatar}` : image.icon} onClick={setToggle} />
+                  <S.IconNav
+                    src={user?.userAvatar ? `${env.uploads}/users/${user.userAvatar}` : image.icon}
+                    onClick={setToggle}
+                    alt={user?.userName}
+                    className={toggle || pathname === `/${user?.userName}` ? 'actived' : ''}
+                  />
                   <div ref={openRef}>
                     <ProfileOptions isOpen={toggle}/>
                   </div>
