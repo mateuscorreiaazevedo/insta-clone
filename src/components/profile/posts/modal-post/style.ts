@@ -16,6 +16,7 @@ export const Div = styled.div`
     font-size: 2rem;
     width: 30px;
     height: 30px;
+    margin: 0 15px;
     border-radius: 50%;
     transition: all 400ms;
     &:active {
@@ -38,14 +39,13 @@ export const UserAvatar = styled.img`
 `
 
 export const ContainerInfo = styled.div`
-  display: flex;
   height: 100%;
   margin-left: 7.5px;
   padding-left: 7.5px;
   border-left: 1px solid #777;
-  flex-direction: column;
-  align-items: stretch;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
 `
 
@@ -77,13 +77,12 @@ export const ContainerSubtitle = styled.div`
   font-size: 1.4rem;
   flex-grow: 1;
   text-align: start;
+  margin: 10px 0;
 `
 
 export const CommentsList = styled.div`
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
   padding: 15px 0;
+  flex-grow: 1;
 `
 
 export const OptionsNav = styled.ul`
@@ -92,7 +91,7 @@ export const OptionsNav = styled.ul`
   opacity: 0;
   height: 0;
   transition: all 400ms;
-  right: -15px;
+  right: 5px;
   width: 150px;
   border-radius: 10px;
   padding: 15px 0;
@@ -149,6 +148,11 @@ export const BtnLike = styled.span`
       }
     }
   }
+`
+export const BtnBallon = styled.label`
+  font-size: 2.4rem;
+  cursor: pointer;
+  margin-left: 15px;
   
 `
 
@@ -162,7 +166,7 @@ export const UsersLikeds = styled.p`
   font-size: 1.4rem;
 `
 
-export const ContainerComments = styled.div`
+export const ContainerComments = styled.form`
   margin: 5px;
   display: flex;
   padding: 0 10px;

@@ -1,8 +1,8 @@
-import { BsHeart, BsHeartFill, BsThreeDots } from 'react-icons/bs'
+import { BsChat, BsHeart, BsHeartFill, BsThreeDots } from 'react-icons/bs'
 import { useClickOutside } from '../../../../hooks/click-outside'
 import { useAuth } from '../../../../contexts/auth-context'
 import { PhotoService } from '../../../../service/photo'
-import { PhotoResponse } from '../../../../types/photo'
+import { CommentResponse, PhotoResponse } from '../../../../types/photo'
 import { UserService } from '../../../../service/user'
 import { UserResponse } from '../../../../types/user'
 import image from '../../../../assets/images/image'
@@ -23,6 +23,7 @@ export const ModalPost = ({ post, userAvatar, userName, setLoading }: Props) => 
   const optionsRef = React.useRef(null)
   const [options, setOptions] = useClickOutside(optionsRef)
   const [userLiked,, call] = useApi<UserResponse>({ service: UserService.getUserById })
+  const [comment, setComment] = React.useState('')
   const { user } = useAuth()
 
   React.useEffect(() => {
@@ -33,20 +34,35 @@ export const ModalPost = ({ post, userAvatar, userName, setLoading }: Props) => 
     try {
       setLoading(prev => !prev)
       await PhotoService.deletePhoto(id)
+      setComment('')
     } catch (error) {
       console.error((error as any).message)
     } finally {
       setLoading(prev => !prev)
     }
   }
+
   const handleLike = async (id: string) => {
     try {
       setLoading(prev => !prev)
-      const response = await PhotoService.likedPhoto(id)
-      console.log(response)
+      await PhotoService.likedPhoto(id)
     } catch (error) {
       console.error((error as any).message)
     } finally {
+      setLoading(prev => !prev)
+    }
+  }
+
+  const handleComment = async (e: React.FormEvent<HTMLFormElement>, id: string) => {
+    e.preventDefault()
+
+    try {
+      setLoading(prev => !prev)
+      await PhotoService.commentPhoto(id, comment)
+    } catch (error) {
+      console.error((error as any).message)
+    } finally {
+      setComment('')
       setLoading(prev => !prev)
     }
   }
@@ -88,15 +104,27 @@ export const ModalPost = ({ post, userAvatar, userName, setLoading }: Props) => 
             <S.ContainerSubtitle>
               <S.UserAvatar src={`${env.uploads}/users/${userAvatar}`} alt={userAvatar} />
               <p>
-              <b>{userName}</b>  {post.subtitle}
+                <b>{userName}</b>  {post.subtitle}
               </p>
-          </S.ContainerSubtitle>
+            </S.ContainerSubtitle>
           )}
+          {post.comments?.map((item: CommentResponse, key) => (
+            <S.ContainerSubtitle key={key}>
+              <S.UserAvatar src={`${env.uploads}/users/${item.avatar}`} alt={item.name} />
+              <p>
+                <b>{item.name}</b>  {item.comment}
+              </p>
+            </S.ContainerSubtitle>
+
+          ))}
         </S.CommentsList>
         <S.ContainerActions>
           <S.BtnLike onClick={() => handleLike(post._id)}>
               {post.likes?.includes(user!._id) ? <BsHeartFill className='red'/> : <BsHeart/>}
           </S.BtnLike>
+          <S.BtnBallon htmlFor='comment'>
+            <BsChat/>
+          </S.BtnBallon>
           {post.likes?.length
             ? (
             <S.UsersLikeds>
@@ -106,9 +134,14 @@ export const ModalPost = ({ post, userAvatar, userName, setLoading }: Props) => 
             </S.UsersLikeds>
               )
             : <S.UsersLikeds>nenhuma curtida</S.UsersLikeds>}
-          <S.ContainerComments>
-              <S.CommentField placeholder='Adicionar comentário...'/>
-              <S.BtnSubmit>
+          <S.ContainerComments onSubmit={e => handleComment(e, post._id)}>
+              <S.CommentField
+                placeholder='Adicionar comentário...'
+                id='comment'
+                onChange={e => setComment(e.target.value)}
+                value={comment}
+              />
+              <S.BtnSubmit type='submit'>
                 Publicar
               </S.BtnSubmit>
           </S.ContainerComments>
