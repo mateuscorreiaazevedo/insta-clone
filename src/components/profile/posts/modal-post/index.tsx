@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import env from '../../../../utils/env'
 import * as S from './style'
 import React from 'react'
+import { useLikeAndComment } from '../../../../hooks/like-comment'
 
 type Props = {
   post: PhotoResponse,
@@ -24,6 +25,7 @@ export const ModalPost = ({ post, userAvatar, userName, setLoading }: Props) => 
   const [options, setOptions] = useClickOutside(optionsRef)
   const [userLiked,, call] = useApi<UserResponse>({ service: UserService.getUserById })
   const [comment, setComment] = React.useState('')
+  const { handleLike, handleComment } = useLikeAndComment({ setLoading, setComment })
   const { user } = useAuth()
 
   React.useEffect(() => {
@@ -38,31 +40,6 @@ export const ModalPost = ({ post, userAvatar, userName, setLoading }: Props) => 
     } catch (error) {
       console.error((error as any).message)
     } finally {
-      setLoading(prev => !prev)
-    }
-  }
-
-  const handleLike = async (id: string) => {
-    try {
-      setLoading(prev => !prev)
-      await PhotoService.likedPhoto(id)
-    } catch (error) {
-      console.error((error as any).message)
-    } finally {
-      setLoading(prev => !prev)
-    }
-  }
-
-  const handleComment = async (e: React.FormEvent<HTMLFormElement>, id: string) => {
-    e.preventDefault()
-
-    try {
-      setLoading(prev => !prev)
-      await PhotoService.commentPhoto(id, comment)
-    } catch (error) {
-      console.error((error as any).message)
-    } finally {
-      setComment('')
       setLoading(prev => !prev)
     }
   }
@@ -134,7 +111,7 @@ export const ModalPost = ({ post, userAvatar, userName, setLoading }: Props) => 
             </S.UsersLikeds>
               )
             : <S.UsersLikeds>nenhuma curtida</S.UsersLikeds>}
-          <S.ContainerComments onSubmit={e => handleComment(e, post._id)}>
+          <S.ContainerComments onSubmit={e => handleComment(e, post._id, comment)}>
               <S.CommentField
                 placeholder='Adicionar comentário...'
                 id='comment'
