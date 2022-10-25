@@ -3,7 +3,8 @@ import styled from 'styled-components'
 export const Container = styled.div`
   background: ${({ theme }) => theme.colors.background};
   width: 440px;
-  height: 70vh;
+  min-height: 70vh;
+  max-height: 90vh;
   padding: 30px;
   border-radius: 15px;
   display: flex;

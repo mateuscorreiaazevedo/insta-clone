@@ -3,7 +3,8 @@ import styled from 'styled-components'
 export const Container = styled.div`
   width: 90vw;
   max-width: 1080px;
-  height: 80vh;
+  min-height: 80vh;
+  max-height: 90vh;
   background: ${({ theme }) => theme.colors.background};
   border-radius: 15px;
   padding: 50px;
@@ -41,6 +42,7 @@ export const Title = styled.h1`
 
 export const Form = styled.form`
   display: flex;
+  align-items: center;
   width: 100%;
   justify-content: space-between;
 `
@@ -64,7 +66,7 @@ export const IconPreview = styled.div`
 
 export const Label = styled.label`
   cursor: pointer;
-  height: 50vh;
+  height: 100%;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
