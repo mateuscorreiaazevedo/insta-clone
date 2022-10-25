@@ -1,13 +1,13 @@
+import { useAuth } from '../../../contexts/auth-context'
 import { PhotoService } from '../../../service/photo'
 import { PhotoResponse } from '../../../types/photo'
 import { ButtonSubmit } from '../../ui/button'
+import { useNavigate } from 'react-router-dom'
 import { IoMdImages } from 'react-icons/io'
 import { MdClose } from 'react-icons/md'
+import env from '../../../utils/env'
 import * as S from './style'
 import React from 'react'
-import env from '../../../utils/env'
-import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../../../contexts/auth-context'
 
 type Props = {
   closeModal?: () => void
