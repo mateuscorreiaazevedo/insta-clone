@@ -37,24 +37,24 @@ export const Profile = ({ profileUser }: Props) => {
         </div>
       </ModalPortal>
       <S.SectionProfile>
-        <S.UserAvatar
-          src={userAvatar ? `${env.uploads}/users/${userAvatar}` : image.icon}
-          alt={`Foto de perfil de ${userName}`}
-        />
         <div>
+          <S.UserAvatar
+            src={userAvatar ? `${env.uploads}/users/${userAvatar}` : image.icon}
+            alt={`Foto de perfil de ${userName}`}
+          />
+        </div>
+        <S.ContainerInfo>
           <S.Head>
             <S.UserName>{profileUser.userName}</S.UserName>
             {user?.userName === userName && <S.EditBtn onClick={setEdit}>Editar</S.EditBtn>}
           </S.Head>
-          <div>
             <S.Bio>
               {bio}
             </S.Bio>
             <S.Link href={'https://' + link} target='_blank' rel="noreferrer">
               {link}
             </S.Link>
-          </div>
-        </div>
+        </S.ContainerInfo>
       </S.SectionProfile>
       <S.Publications>
         Publicações
