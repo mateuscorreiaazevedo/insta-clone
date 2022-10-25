@@ -2,16 +2,19 @@ import styled from 'styled-components'
 
 export const ContainerImage = styled.div`
   position: relative;
-  width: 290px;
-  height: 290px;
-  margin: 10px;
   cursor: pointer;
+  overflow: hidden;
+  padding-bottom: 100%;
+
 `
 
 export const Image = styled.img`
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
+  width: 300px;
+  height: 300px;
   object-fit: cover;
+  margin: auto;
 `
 
 export const Preview = styled.div`

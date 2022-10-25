@@ -32,8 +32,10 @@ export const ExplorePage = () => {
     <Main>
       <Container
         style={{
-          display: 'flex',
-          flexWrap: 'wrap'
+          display: 'grid',
+          gridTemplateColumns: '33% 33% 33%',
+          gridGap: '15px',
+          padding: '15px 0'
         }}
       >
         {posts.length

@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const PostSection = styled.section`
-  width: 560px;
+  width: 100%;
+  max-width: 560px;
   border-radius: 15px;
   background: ${({ theme }) => theme.colors.primary};
   box-shadow: 0 0 50px rgba(0,0,0,0.1);

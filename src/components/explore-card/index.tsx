@@ -1,4 +1,5 @@
 import { useClickOutside } from '../../hooks/click-outside'
+import { BsChatFill, BsHeartFill } from 'react-icons/bs'
 import { PhotoResponse } from '../../types/photo'
 import { UserService } from '../../service/user'
 import { ModalPost } from '../modal/modal-post'
@@ -8,7 +9,6 @@ import { ModalPortal } from '../modal'
 import env from '../../utils/env'
 import * as S from './style'
 import React from 'react'
-import { BsChatFill, BsHeartFill } from 'react-icons/bs'
 
 type Props = {
   post: PhotoResponse

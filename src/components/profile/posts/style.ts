@@ -3,15 +3,17 @@ import styled from 'styled-components'
 export const ContainerImage = styled.div`
   cursor: pointer;
   position: relative;
+  overflow: hidden;
+  padding-bottom: 100%;
 `
 
 export const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  max-width: 315px;
-  max-height: 315px;
-  size: 293px;
+  position: absolute;
+  inset: 0;
   object-fit: cover;
+  height: 315px;
+  width: 315px;
+  margin: auto;
 `
 
 export const LikesAndComments = styled.div`
