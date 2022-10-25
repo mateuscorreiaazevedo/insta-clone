@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const ContainerSearch = styled.div`
+  @media (max-width: 690px) {
+   display: none;
+  }
   position: relative;
   display: flex;
   width: 306px;

@@ -7,6 +7,9 @@ export const Aside = styled.aside`
   height: 160px;
   align-items: flex-end;
   justify-content: space-between;
+  @media (max-width: 920px) {
+    display: none;
+  }
 `
 
 export const UserAvatar = styled.img`

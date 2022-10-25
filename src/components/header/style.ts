@@ -21,12 +21,17 @@ export const Content = styled.nav`
 export const Title = styled(Link)`
   font-size: 4rem;
   text-decoration: none;
-  
   color: ${({ theme }) => theme.colors.text};
   font-weight: 500;
+  @media (max-width: 545px) {
+    display: none;
+  }
 `
 
 export const Nav = styled.ul`
+  @media (max-width: 545px) {
+    flex: 1;
+  }
   list-style: none;
   padding: 0 40px;
   display: flex;
