@@ -59,9 +59,7 @@ export const Publications = styled.h2`
 
 export const SectionPosts = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, 280px);
-  grid-auto-flow: row;
-  grid-gap: 45px;
-
-  margin: 15px 0;
+  grid-template-columns: 32.3% 32.3% 32.3%;
+  grid-gap: 15px;
+  padding: 15px 0;
 `

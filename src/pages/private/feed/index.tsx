@@ -7,16 +7,28 @@ import { Main } from '../../../components/ui/main'
 import { useApi } from '../../../hooks/api'
 import * as S from './style'
 import React from 'react'
+import { Loader } from '../../../components/ui/loader'
 
 export const FeedPage = () => {
-  const [posts,, callback,, setLoading] = useApi<PhotoResponse[]>({
-    service: PhotoService.getAll,
-    initialValue: []
+  const [posts, loading, callback,, setLoading] = useApi<PhotoResponse[]>({
+    service: PhotoService.getAll
   })
 
   React.useEffect(() => {
     callback()
-  }, [posts])
+  }, [loading])
+
+  if (loading && posts === undefined) {
+    return (
+      <Main style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <Loader/>
+      </Main>
+    )
+  }
 
   return (
     <Main>

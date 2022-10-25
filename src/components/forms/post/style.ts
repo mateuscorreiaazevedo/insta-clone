@@ -79,6 +79,7 @@ export const Input = styled.input`
 export const ImagePreview = styled.img`
   max-height: 50vh;
   max-width: 570px;
+  object-fit: contain;
 `
 
 export const InputSubtitle = styled.textarea`
