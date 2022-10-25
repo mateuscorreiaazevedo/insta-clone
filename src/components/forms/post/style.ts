@@ -45,6 +45,11 @@ export const Form = styled.form`
   align-items: center;
   width: 100%;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 15px;
+    height: 100%;
+  }
 `
 
 export const closeBtn = styled.div`
@@ -62,6 +67,9 @@ export const closeBtn = styled.div`
 export const IconPreview = styled.div`
   font-size: 40rem;
   color: ${({ theme }) => theme.colors.secondary};
+  @media (max-width: 768px) {
+    font-size: 20rem;
+  }
 `
 
 export const Label = styled.label`
@@ -82,13 +90,19 @@ export const ImagePreview = styled.img`
   max-height: 50vh;
   max-width: 570px;
   object-fit: contain;
+  @media (max-width: 768px) {
+    max-width: 100%;
+    max-height: 30vh;
+  }
 `
 
 export const InputSubtitle = styled.textarea`
-  min-width: 340px;
-  max-width: 340px;
-  min-height: 50vh;
-  max-height: 50vh;
+  @media (max-width: 768px) {
+    height: 30vh;
+    width: 100%;
+  }
+  width: 340px;
+  height: 50vh;
   font-size: 1.4rem;
   background: ${({ theme }) => theme.colors.secondary};
   border-radius: 15px;
@@ -96,10 +110,15 @@ export const InputSubtitle = styled.textarea`
   padding: 15px;
   outline: none;
   border: none;
+  resize: none;
 `
 
 export const SectionPost = styled.section`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-grow: 1;
+  }
 `

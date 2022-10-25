@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export const Div = styled.div`
   background: ${({ theme }) => theme.colors.primary};
-  width: 90vw;
+  width: 100%;
   max-width: 980px;
   height: 70vh;
   border-radius: 15px;
@@ -22,6 +22,12 @@ export const Div = styled.div`
     &:active {
       background: ${({ theme }) => theme.colors.secondary};
     }
+  }
+
+  @media (max-width: 520px) {
+    flex-direction: column;
+    height: 90vh;
+    width: 90vw;
   }
 `
 
@@ -47,6 +53,11 @@ export const ContainerInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  @media (max-width: 520px) {
+    border-left: none;
+    padding-left: 0;
+    margin-left: 0;
+  }
 `
 
 export const Nav = styled.nav`
@@ -54,9 +65,12 @@ export const Nav = styled.nav`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 60px;
+  min-height: 60px;
   border-bottom: 1px solid #777;
   position: relative;
+  @media (max-width: 520px) {
+    border-top: 1px solid #777;
+  }
 `
 export const LinkTo = styled(Link)`
   display: flex;
@@ -81,10 +95,15 @@ export const ContainerSubtitle = styled.div`
 `
 
 export const CommentsList = styled.div`
+  @media (max-width: 520px) {
+    height: 100%;
+    max-height: 300px;
+  }
   padding: 15px 0;
   height: 50vh;
   max-height: 450px;
   overflow-y: auto;
+
 
   &::-webkit-scrollbar {
     width: 5px;

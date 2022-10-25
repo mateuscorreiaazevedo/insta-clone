@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { useApi } from '../../../hooks/api'
 import { PhotoResponse } from '../../../types/photo'
 import { PhotoService } from '../../../service/photo'
+import { Container } from '../../../components/ui/container'
 
 export const EditPostPage = () => {
   const { id } = useParams()
@@ -18,7 +19,14 @@ export const EditPostPage = () => {
 
   return (
     <Main>
-      <PostForm editPost={photo} />
+      <Container
+        style={{
+          display: 'flex',
+          justifyContent: 'center'
+        }}
+      >
+        <PostForm editPost={photo} />
+      </Container>
     </Main>
   )
 }
