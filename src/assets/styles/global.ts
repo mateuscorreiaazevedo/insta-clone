@@ -19,9 +19,9 @@ export const GlobalStyle = createGlobalStyle`
   width: 8px;
   }
   &::-webkit-scrollbar-thumb {
-    border-radius: 3px;
+    border-radius: 5px;
     background: ${({ theme }) => theme.colors.secondary};
-    box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
   }
   overflow-x: hidden;
   width: 100%;
