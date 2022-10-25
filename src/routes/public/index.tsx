@@ -8,10 +8,10 @@ export const PublicRoutes = () => {
   return (
     <PublicLayout>
       <Routes>
-        <Route index element={<Navigate to='/login'/>}/>
-        <Route path='/login' element={<LoginPage/>}/>
+        <Route index element={<LoginPage/>}/>
+        <Route path='/login' element={<Navigate to='/'/>}/>
         <Route path='/register' element={<RegisterPage/>}/>
-        <Route path='*' element={<Navigate to='/login'/>}/>
+        <Route path='*' element={<Navigate to='/'/>}/>
       </Routes>
     </PublicLayout>
   )
