@@ -71,7 +71,7 @@ export const ModalPost = ({ post, userAvatar, userName, setLoading }: Props) => 
         <S.CommentsList>
           {post?.subtitle && (
             <S.ContainerSubtitle>
-              <S.UserAvatar src={`${env.uploads}/users/${userAvatar}`} alt={userAvatar} />
+              <S.UserAvatar src={userAvatar ? `${env.uploads}/users/${userAvatar}` : image.icon} alt={userAvatar} />
               <p>
                 <b>{userName}</b>  {post.subtitle}
               </p>
@@ -79,7 +79,7 @@ export const ModalPost = ({ post, userAvatar, userName, setLoading }: Props) => 
           )}
           {post.comments?.map((item: CommentResponse, key) => (
             <S.ContainerSubtitle key={key}>
-              <S.UserAvatar src={`${env.uploads}/users/${item.avatar}`} alt={item.name} />
+              <S.UserAvatar src={item.avatar ? `${env.uploads}/users/${item.avatar}` : image.icon} alt={item.name} />
               <p>
                 <b>{item.name}</b>  {item.comment}
               </p>

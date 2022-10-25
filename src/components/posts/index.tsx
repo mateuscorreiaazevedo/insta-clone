@@ -7,6 +7,7 @@ import { PhotoResponse } from '../../types/photo'
 import { UserService } from '../../service/user'
 import { UserResponse } from '../../types/user'
 import { ModalPost } from '../modal/modal-post'
+import image from '../../assets/images/image'
 import { useApi } from '../../hooks/api'
 import { Link } from 'react-router-dom'
 import { ModalPortal } from '../modal'
@@ -35,12 +36,10 @@ export const PostsList = ({ post, setLoading }: Props) => {
 
   const handleDelete = async (id: string) => {
     try {
-      setLoading(prev => !prev)
       await PhotoService.deletePhoto(id)
+      window.location.reload()
     } catch (error) {
       console.error((error as any).message)
-    } finally {
-      setLoading(prev => !prev)
     }
   }
 
@@ -59,7 +58,7 @@ export const PostsList = ({ post, setLoading }: Props) => {
       <S.PostNav>
         <S.HeadLine to={`/${userPost?.userName}`}>
           <S.PostUserAvatar
-            src={`${env.uploads}/users/${userPost?.userAvatar}`}
+            src={userPost?.userAvatar ? `${env.uploads}/users/${userPost?.userAvatar}` : image.icon}
             alt={userPost?.userName}
           />
           <h2>
