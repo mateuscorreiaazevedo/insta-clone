@@ -6,8 +6,11 @@ export const ContainerImage = styled.div`
 `
 
 export const Image = styled.img`
-  width: 275px;
-  height: 275px;
+  width: 100%;
+  height: 100%;
+  max-width: 315px;
+  max-height: 315px;
+  size: 293px;
   object-fit: cover;
 `
 
@@ -15,8 +18,10 @@ export const LikesAndComments = styled.div`
   position: absolute;
   top: 0;
   opacity: 0;
-  width: 275px;
-  height: 275px;
+  width: 100%;
+  height: 100%;
+  max-width: 315px;
+  max-height: 315px;
   gap: 15px;
   display: flex;
   align-items: center;
