@@ -12,14 +12,22 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    &:has(.modal-open) {
-      overflow-y: hidden;
-    }
-    overflow-x: hidden;
-    width: 100%;
-    min-height: 100vh;
-    font-size: 1.6rem;
-    background: ${({ theme }) => theme.colors.background};
-    color: ${({ theme }) => theme.colors.text};
+  &:has(.modal-open) {
+    overflow-y: hidden;
+  }
+  &::-webkit-scrollbar {
+  width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: ${({ theme }) => theme.colors.secondary};
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
+  }
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+  font-size: 1.6rem;
+  background: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.text};
   }
 `
