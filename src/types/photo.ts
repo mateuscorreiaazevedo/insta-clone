@@ -1,7 +1,7 @@
 export type CommentResponse = {
   comment: string,
   name: string
-  avatar: string
+  avatar?: string
   userId: string
 }
 

@@ -104,9 +104,9 @@ export const PostsList = ({ post, setLoading }: Props) => {
             </S.Subtitle>
           )}
           <S.Subtitle>
-            <Link to={`/${post.comments[0]?.name}`}>{post.comments[0]?.name}</Link> {post.comments[0]?.comment}
+            <Link to={`/${post.comments![0]?.name}`}>{post.comments![0]?.name}</Link> {post.comments![0]?.comment}
           </S.Subtitle>
-          {post.comments?.length > 1 && (
+          {post.comments!.length > 1 && (
             <S.More onClick={setModal}>
               Toque para visualizar mais comentários*
             </S.More>
