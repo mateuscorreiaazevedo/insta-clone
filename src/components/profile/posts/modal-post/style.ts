@@ -82,7 +82,17 @@ export const ContainerSubtitle = styled.div`
 
 export const CommentsList = styled.div`
   padding: 15px 0;
-  flex-grow: 1;
+  height: 50vh;
+  max-height: 450px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: ${({ theme }) => theme.colors.secondary};
+  }
 `
 
 export const OptionsNav = styled.ul`
