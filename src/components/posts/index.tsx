@@ -1,13 +1,18 @@
-import { BsHeart, BsHeartFill } from 'react-icons/bs'
+import { BsHeart, BsHeartFill, BsThreeDots } from 'react-icons/bs'
+import { useLikeAndComment } from '../../hooks/like-comment'
+import { useClickOutside } from '../../hooks/click-outside'
 import { useAuth } from '../../contexts/auth-context'
+import { PhotoService } from '../../service/photo'
 import { PhotoResponse } from '../../types/photo'
 import { UserService } from '../../service/user'
 import { UserResponse } from '../../types/user'
+import { ModalPost } from '../modal/modal-post'
 import { useApi } from '../../hooks/api'
+import { Link } from 'react-router-dom'
+import { ModalPortal } from '../modal'
 import env from '../../utils/env'
 import * as S from './style'
 import React from 'react'
-import { useLikeAndComment } from '../../hooks/like-comment'
 
 type Props = {
   post: PhotoResponse
@@ -18,16 +23,39 @@ export const PostsList = ({ post, setLoading }: Props) => {
   const { user } = useAuth()
   const [comment, setComment] = React.useState('')
   const { handleLike, handleComment } = useLikeAndComment({ setLoading, setComment })
-  const [userPost, load, callback] = useApi<UserResponse | undefined>({
-    service: UserService.getUserById
-  })
+  const [userPost, load, callback] = useApi<UserResponse | undefined>({ service: UserService.getUserById })
+  const optionsRef = React.useRef(null)
+  const [activeOptions, setActiveOptions] = useClickOutside(optionsRef)
+  const modalRef = React.useRef(null)
+  const [modal, setModal] = useClickOutside(modalRef)
 
   React.useEffect(() => {
     callback(post.userId)
   }, [load])
 
+  const handleDelete = async (id: string) => {
+    try {
+      setLoading(prev => !prev)
+      await PhotoService.deletePhoto(id)
+    } catch (error) {
+      console.error((error as any).message)
+    } finally {
+      setLoading(prev => !prev)
+    }
+  }
+
   return (
     <S.PostSection>
+      <ModalPortal isOpen={modal}>
+        <div ref={modalRef}>
+          <ModalPost
+            post={post}
+            userName={post.userName}
+            setLoading={setLoading}
+            userAvatar={userPost?.userAvatar}
+          />
+        </div>
+      </ModalPortal>
       <S.PostNav>
         <S.HeadLine to={`/${userPost?.userName}`}>
           <S.PostUserAvatar
@@ -38,6 +66,21 @@ export const PostsList = ({ post, setLoading }: Props) => {
             {userPost?.userName}
           </h2>
         </S.HeadLine>
+        {post.userId === user?._id && (
+        <S.NavOptions>
+          <BsThreeDots onClick={setActiveOptions}/>
+          <div ref={optionsRef}>
+            <ul className={activeOptions ? 'active' : ''}>
+              <li>
+                <Link to={`/edit/post/${post._id}`}>Editar</Link>
+              </li>
+              <li className='red' onClick={() => handleDelete(post._id)}>
+                Excluir
+              </li>
+            </ul>
+          </div>
+        </S.NavOptions>
+        )}
       </S.PostNav>
       <S.PostImage
         src={`${env.uploads}/photos/${post.image}`}
@@ -55,6 +98,21 @@ export const PostsList = ({ post, setLoading }: Props) => {
               )
             : <S.PostLikes>Nenhuma curtida</S.PostLikes>}
         </S.ContainerBtnActions>
+        <S.CommentList>
+          {post.subtitle && (
+            <S.Subtitle>
+              <Link to={`/${post.userName}`}>{post.userName}</Link> {post.subtitle}
+            </S.Subtitle>
+          )}
+          <S.Subtitle>
+            <Link to={`/${post.comments[0]?.name}`}>{post.comments[0]?.name}</Link> {post.comments[0]?.comment}
+          </S.Subtitle>
+          {post.comments?.length > 1 && (
+            <S.More onClick={setModal}>
+              Toque para visualizar mais comentários*
+            </S.More>
+          )}
+        </S.CommentList>
         <S.PostForm onSubmit={e => handleComment(e, post._id, comment)}>
           <S.PostComment
             placeholder='Escreva um comentário...'

@@ -2,8 +2,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const PostSection = styled.section`
-  width: 460px;
-  height: 600px;
+  width: 560px;
   border-radius: 15px;
   background: ${({ theme }) => theme.colors.primary};
   box-shadow: 0 0 50px rgba(0,0,0,0.1);
@@ -35,22 +34,80 @@ export const PostNav = styled.nav`
   padding: 0 15px;
   display: flex;
   align-items: center;
-  height: 60px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.text};
+  justify-content: space-between;
+  border-bottom: 1px solid #777;
+  min-height: 60px;
+  max-height: 60px;
+`
+
+export const NavOptions = styled.div`
+  position: relative;
+  svg {
+    cursor: pointer;
+    font-size: 2.4rem;
+  }
+
+  ul {
+    list-style: none;
+    position: absolute;
+    padding: 10px 0;
+    border-radius: 15px;
+    opacity: 0;
+    right: -16px;
+    top: 35px;
+    width: 120px;
+    transition: all 400ms;
+    background: ${({ theme }) => (
+      theme.title !== 'dark' ? theme.colors.secondary : theme.colors.secondary
+    )};
+    &::after {
+      content: "";
+      width: 0;
+      height: 0;
+      top: -10px;
+      right: 18px;
+      position: absolute;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid ${({ theme }) => (
+        theme.title !== 'dark' ? theme.colors.secondary : theme.colors.secondary
+      )};
+    }
+    &.active {
+      opacity: 1;
+    }
+    li {
+      cursor: pointer;
+      padding: 6px 15px;
+      transition: all 400ms;
+      &.red {
+        color: ${({ theme }) => theme.colors.red};
+      }
+      a {
+        text-decoration: none;
+        color: ${({ theme }) => theme.colors.text};
+      }
+      &:hover {
+        background: ${({ theme }) => theme.colors.primary};
+      }
+    }
+  }
 `
 
 export const PostImage = styled.img`
   width: 100%;
   height: 100%;
-  max-height: 460px;
+  max-height: 450px;
   object-fit: contain;
   flex-grow: 1;
   padding: 0 15px;
+  margin: 5px 0;
 `
 
 export const ContainerActions = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 10px 0;
   justify-content: center;
 `
 
@@ -59,6 +116,29 @@ export const ContainerBtnActions = styled.div`
   gap: 10px;
   align-items: center;
   padding: 0 10px;
+`
+
+export const CommentList = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 5px 15px;
+  gap: 5px;
+`
+
+export const Subtitle = styled.p`
+  font-size: 1.4rem;
+  a {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: ${({ theme }) => theme.colors.text};
+  }
+`
+
+export const More = styled.span`
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #777;
 `
 
 export const BtnLike = styled.span.attrs({ role: 'button' })`
