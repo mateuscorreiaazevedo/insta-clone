@@ -8,6 +8,7 @@ export const SectionProfile = styled.section`
   gap: 40px;
   @media (max-width: 768px) {
     gap: 10px;
+    padding: 40px 10px;
   }
 `
 
@@ -57,6 +58,7 @@ export const Bio = styled.p`
   width: 30rem;
   @media (max-width: 425px) {
     font-size: 1.4rem;
+    width: 25rem;
   }
 `
 export const Link = styled.a`
