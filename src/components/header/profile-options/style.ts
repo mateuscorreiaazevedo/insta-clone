@@ -20,7 +20,7 @@ export const ContainerOptions = styled.ul`
       width: 0;
       height: 0;
       top: -10px;
-      right: 32px;
+      right: 16px;
       position: absolute;
 
       border-left: 10px solid transparent;
@@ -31,6 +31,10 @@ export const ContainerOptions = styled.ul`
     }
   &.active {
     display: flex;
+  }
+  @media (max-width: 545px) {
+    width: 180px;
+    right: -12px;
   }
 `
 

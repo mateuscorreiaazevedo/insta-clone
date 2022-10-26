@@ -1,3 +1,4 @@
+import { SearchMobilePage } from '../../pages/private/search-mobile'
 import { PrivateLayout } from '../../components/layouts/private'
 import { EditPostPage } from '../../pages/private/edit-post'
 import { ProfilePage } from '../../pages/private/profile'
@@ -14,6 +15,7 @@ export const PrivateRoutes = () => {
         <Route path='/:userName' element={<ProfilePage/>} />
         <Route path='/explore' element={<ExplorePage/>} />
         <Route path='/edit/post/:id' element={<EditPostPage/>}/>
+        <Route path='/s' element={<SearchMobilePage/>}/>
       </Routes>
     </PrivateLayout>
   )

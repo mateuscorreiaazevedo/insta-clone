@@ -189,6 +189,9 @@ export const ContainerActions = styled.div`
   height: 100px;
   padding: 10px 0;
   border-top: 1px solid #777;
+  @media (max-width: 425px) {
+    padding: 10px 5px;
+  }
 `
 
 export const UsersLikeds = styled.p`

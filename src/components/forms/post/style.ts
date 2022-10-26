@@ -14,6 +14,10 @@ export const Container = styled.div`
   &.page {
     margin: 32px 0;
   }
+  @media (max-width: 425px) {
+    padding: 10px;
+    max-height: 100vh;
+  }
 `
 
 export const ErrorMsg = styled.p`
@@ -38,6 +42,9 @@ export const Title = styled.h1`
   width: 100%;
   margin-bottom: 25px;
   text-align: center;
+  @media (max-width: 425px) {
+    font-size: 2.4rem;
+  }
 `
 
 export const Form = styled.form`
@@ -61,6 +68,12 @@ export const closeBtn = styled.div`
     font-size: 2.5rem;
     font-weight: 100;
     color: ${({ theme }) => theme.colors.text};
+  }
+  @media (max-width: 425px) {
+    top: 5px;
+    .icon {
+      font-size: 3rem;
+    }
   }
 `
 

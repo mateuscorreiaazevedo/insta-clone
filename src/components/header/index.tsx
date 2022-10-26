@@ -1,4 +1,4 @@
-import { BsHouseDoorFill, BsHouseDoor, BsPlusSquare, BsPlusSquareFill } from 'react-icons/bs'
+import { BsHouseDoorFill, BsHouseDoor, BsPlusSquare, BsPlusSquareFill, BsSearch } from 'react-icons/bs'
 import { MdExplore, MdOutlineExplore } from 'react-icons/md'
 import { useClickOutside } from '../../hooks/click-outside'
 import { Link, useLocation } from 'react-router-dom'
@@ -27,11 +27,16 @@ export const Header = () => {
         <S.Content>
             <div>
               <S.Title to='/'>
-                Instagram
+                InstaClone
               </S.Title>
             </div>
-            <SearchUser/>
+            <SearchUser />
             <S.Nav>
+              <li className='search-mobile'>
+                <Link to='/s'>
+                  <BsSearch />
+                </Link>
+              </li>
               <li>
                 <Link to='/'>
                   {(pathname === '/' && !modal) ? <BsHouseDoorFill/> : <BsHouseDoor/>}

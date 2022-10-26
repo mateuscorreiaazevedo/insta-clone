@@ -15,9 +15,9 @@ export const Content = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 25px;
   height: 100%;
 `
+
 export const Title = styled(Link)`
   font-size: 4rem;
   text-decoration: none;
@@ -29,9 +29,7 @@ export const Title = styled(Link)`
 `
 
 export const Nav = styled.ul`
-  @media (max-width: 545px) {
-    flex: 1;
-  }
+
   list-style: none;
   padding: 0 40px;
   display: flex;
@@ -46,6 +44,17 @@ export const Nav = styled.ul`
       text-decoration: none;
       color: ${({ theme }) => theme.colors.text};
     }
+    &.search-mobile {
+      display: none;
+      @media (max-width: 690px) {
+        display: block;
+      }
+    }
+  }
+  @media (max-width: 545px) {
+    flex: 1;
+    padding: 0;
+    justify-content: space-around;
   }
 `
 
